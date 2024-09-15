@@ -3157,17 +3157,20 @@ window.Quarto = {
 <p>The intercept <span class="math inline">\(\beta_0\)</span> is</p>
 <p><span class="math display">\[
 \beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
-\]</span> in which the sum of the <em>y</em> values is divided by the number of observations <em>n</em>, and then subtracted by the slope <span class="math inline">\(\beta_1\)</span>.</p>
+\]</span></p>
+<p>in which the sum of the <em>y</em> values is divided by the number of observations <em>n</em>, and then subtracted by the slope <span class="math inline">\(\beta_1\)</span>.</p>
 <p>            Based on the above, predictions can be made about what would happen along the regression line where there are no data points, provided these predictions do not exceed the minimum and maximum boundaries of the data points.</p>
 <p>            Quantile regression (QR) is a unique statistical approach that divides a distribution into different sections and finds the median point inside each one.  This can be done in quartiles, where the distribution is evenly divided at 25% increments; in percentiles, where the distribution is evenly divided at 10% increments; or other types of quantiles where the distribution is divided into other numbers of sections as desired.  This approach is especially useful when a distribution contains exceedingly high or low values, given that medians are not as influenced by extreme values as compared to means.  QR is often an excellent solution when only one upper or lower end of a distribution contains a key variable.  Further, variables may enjoy unique relationships within different sections of a distribution (Buhai, 2005). </p>
 <p>The equation for QR is</p>
 <p><span class="math display">\[
 Q_Y(\tau \mid X) = X \beta(\tau)
-\]</span> where Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient (Koenker, 2005).</p>
+\]</span></p>
+<p>where Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient (Koenker, 2005).</p>
 <p>            QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution (Cohen et al., 2016).  Koenker and Machado (1999) identified the absence of a suitable goodness-of-fit assessment for this statistical method.  The authors developed a method with inspiration from <em>R<sup>2</sup></em>.  <em>R<sup>2</sup></em> is the coefficient of determination, which identifies the difference between the regression line and the mean.  This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.  The formula is as follows:</p>
 <p><span class="math display">\[
 R^2 = 1 - \frac{\sum \left(y_i - \hat{y}\right)^2}{\sum \left(y_i - \bar{y}\right)^2}
-\]</span> in which the sum of observed values \hat{y} are subtracted by the sum of fitted values and squared, forming the numerator.  The sum of observed values y_i minus the sum of sample mean \bar{y} and then squared, forming the denominator.  This formula may also be represented as</p>
+\]</span></p>
+<p>in which the sum of observed values <span class="math inline">\(\hat{y}\)</span> are subtracted by the sum of fitted values and squared, forming the numerator.  The sum of observed values <span class="math inline">\(y_i\)</span> minus the sum of sample mean <span class="math inline">\(\bar{y}\)</span> and then squared, forming the denominator.  This formula may also be represented as</p>
 <p><span class="math display">\[
 R^2 = 1 - \frac{RSS}{TSS}
 \]</span> where RSS is the residual sum of squares and TSS is the total sum of squares.</p>
