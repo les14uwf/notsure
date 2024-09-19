@@ -1,0 +1,100 @@
+---
+title: "Quantile Regresssion"
+subtitle: "Literature Review"
+author: "Not Sure"
+execute:
+  echo: true
+  warning: false
+  message: false
+  error: false
+format: 
+  revealjs:
+    theme: dark
+    embed-resources: true
+    slide-number: false
+    width: 1600
+    height: 900
+    df-print: paged
+    html-math-method: katex
+editor: source
+pdf-separate-fragments: true
+fig-align: center
+---
+
+## Quantile regression: overview and selected applications
+
+-   The author provides an overview of quantile regression and illustrates two of its applications.
+-   Variables may enjoy unique relationships within different sections of a distribution, which can be more readily identified using quantile regression.
+-   The author notes this method is useful when working with non-Gaussian distributions
+
+Buhai, S. (2005). Quantile regression: overview and selected applications. *Ad Astra, 4*(4), 1-17.
+
+## Increasing sensitivity of results by using quantile regression analysis for exploring community resilience
+
+-   The authors used quantile regression to evaluate the relationships between community demographics and perceived resilience.
+-   The distribution was divided into percentiles and quartiles.
+-   A significant relationship was identified inside several quantiles that were not significant when using linear regression on the entire distribution.
+-   The authors note that quantile regression is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution.
+
+Cohen, O., Bolotin, A., Lahad, M., Goldberg, A., & Aharonson-Daniel, L. (2016). Increasing sensitivity of results by using quantile regression analysis for exploring community resilience. *Ecological Indicators, 66*, 497-502.
+
+## Quantile regression
+
+-   The equation for quantile regression is $$
+Q_Y(\tau \mid X) = X \beta(\tau)
+$$
+-   Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), and β is the regression coefficient.
+
+Koenker, R. (2005). *Quantile regression*. Cambridge University Press.
+
+## Quantile regression
+
+-   The authors explain quantile regression and contrast it against linear regression.
+-   Quantile regression allows the data scientist to learn about the predictor variables’ relationships with an outcome variable from a tiered perspective.
+-   Quantile regression is less affected by extreme values since it is not reliant on means.
+-   This approach is especially useful when the relationships of interest are primarily located in an upper or lower quartile.
+
+Koenker, R. & Hallock, K. (2001). Quantile regression. Journal of Economic Perspectives, 15(4), 143-56.
+
+## Goodness of fit and related inference processes for quantile regression
+
+-   The authors identified the absence of a suitable goodness-of-fit assessment for quantile regression.
+-   They developed a method with inspiration from R2, which is the coefficient of determination.
+-   Their methods are Δn(τ), Wn(τ), and Tn(τ)
+-   These new methods expanded the capacity for quantile regression inference.
+-   The theory behind these new methods is beyond the scope of this course.
+
+Koenker, R. & Machado, J.A. (1999). Goodness of fit and related inference processes for quantile regression. *Journal of the American Statistical Association, 94*(48). 1296-310.
+
+## Quantiles for counts
+
+-   The authors explored the use of quantile regression for count data.
+-   By incorporating artificial smoothness, the authors were able to make inferences about the conditional quartiles.
+-   This method is likely far outside the scope of our project but provides a reference point for defining quantile regression, its applications, and limitations.
+
+Machado, J.A. & Santos Silva, J.M.C. (2005). Quantiles for counts. *Journal of the American Statistical Association, 400*(472), 1226-37. https://doi.org/10.1198/016214505000000330
+
+## Use of quantile regression to determine the impact on total health care costs of surgical site infections following common ambulatory procedures
+
+-   The authors employed quantile regression in a retrospective cohort study using data from insurer claims.
+-   The intent was to identify factors affecting costs of infections following inpatient surgical procedures.
+-   Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
+-   Quantile regression allowed the authors to focus on different factors associated with costs for the serious surgical infections located within that quantile.
+
+Olsen, M.A., Tian, F., Wallace, A.E., Nickel, K.B., Warren, D.K., Fraser, V.J., … & Hamilton, B.H. (2017). Use of quantile regression to determine the impact on total health care costs of surgical site infections following common ambulatory procedures. *Annals of Surgery, 265*(2), 331-9. Doi:10.1097/SLA.0000000000001590
+
+## Quantile regression and its applications: A primer for anesthesiologists
+
+-   The authors utilized QR to understand relationships between ventilator dependence and hospital length-of-stay.
+-   The authors suspected these relationships changed across different quantiles.
+-   The authors found stronger relationships between the predictor variables inside the upper quantiles of the length of stay outcome.
+
+Staffa, S.J., Kohane, D.S., & Zurakowski, D. (2019). Quantile regression and its applications: A primer for anesthesiologists. *Anesthesia & Analgesia, 128*(4), 820-30. doi: 10.1213/ANE.0000000000004017
+
+## Quantile regression: A short story on how and why
+
+-   The author utilized body mass index (BMI) data to illustrate the usefulness of quantile regression.
+-   The goal was to answer questions about the outer portions of the distribution, which in this case was boys with the highest BMI.\
+-   Quantile regression afforded insight into how predictor variables can have stronger or weaker effects within different areas of the distribution.
+
+Waldmann, E. (2018). Quantile regression: A short story on how and why. *Statistical Modelling, 18*(3-4), 203-18.
