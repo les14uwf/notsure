@@ -136,7 +136,8 @@ Attaching package: 'dplyr'</code></pre>
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
-<p>The Behavioral Risk Factor Surveillance System (BRFSS) is a collection of telephone survey data. BRFSS contains basic demographic information along with acute and chronic disease status, healthcare and dental care access, insurance information, and a variety of socioeconomic indicators. The original dataset had &gt;400,000 observations, which I filtered down to Florida only for this assessment. I believe this would be an excellent candidate for QR.</p>
+<p><strong>Review</strong></p>
+<p>The Behavioral Risk Factor Surveillance System (BRFSS) is a collection of telephone survey data. BRFSS contains deidentified demographic information along with acute and chronic disease status, healthcare and dental care access, insurance information, and a variety of socioeconomic indicators. The original dataset had &gt;400,000 observations, which I filtered down to Florida residents and just a few variables for this initial assessment. I believe this would be an excellent candidate for QR.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#FILTERING FOR FL, SELECTING VARIABLES</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>brfss<span class="ot">&lt;-</span><span class="fu">read.xport</span>(<span class="st">"LLCP2022.XPT"</span>) </span>
