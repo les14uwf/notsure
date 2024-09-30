@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.4.555" />
 
-<meta name="authors" content="Sikes, Laura and Hewett, Hamilton">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
-<title>BRFSS-Florida 2023</title>
+<meta name="author" content="Sikes, Laura and Hewett, Hamilton" />
+
+<title>BRFSS 2023</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,32 +23,57 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
-
-<script src="brfsstable1_files/libs/clipboard/clipboard.min.js"></script>
-<script src="brfsstable1_files/libs/quarto-html/quarto.js"></script>
-<script src="brfsstable1_files/libs/quarto-html/popper.min.js"></script>
-<script src="brfsstable1_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="brfsstable1_files/libs/quarto-html/anchor.min.js"></script>
-<link href="brfsstable1_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="brfsstable1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="brfsstable1_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="brfsstable1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="brfsstable1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<!-- htmldependencies:E3FAD763 -->
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BRFSS-Florida 2023</h1>
+<h1 class="title">BRFSS 2023</h1>
 </div>
 
 
@@ -54,9 +81,9 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Sikes, Laura and Hewett, Hamilton</p>
+             <p>Sikes, Laura and Hewett, Hamilton </p>
           </div>
   </div>
     
@@ -69,320 +96,539 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-cly1{text-align:left;vertical-align:middle}
-.tg .tg-mwxe{text-align:right;vertical-align:middle}
-.tg .tg-8d8j{text-align:center;vertical-align:bottom}
-.tg .tg-7zrl{text-align:left;vertical-align:bottom}
-.tg .tg-i13y{background-color:rgba(0, 0, 0, 0.02);text-align:left;vertical-align:middle}
-.tg .tg-ea2f{background-color:rgba(0, 0, 0, 0.02);text-align:right;vertical-align:middle}
-</style>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 52%">
-<col style="width: 15%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>n = 6491</th>
-<th>%</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Self-Assessed General Health</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Excellent</td>
-<td>590</td>
-<td>9.1</td>
-</tr>
-<tr class="odd">
-<td>Very Good</td>
-<td>1743</td>
-<td>26.9</td>
-</tr>
-<tr class="even">
-<td>Good</td>
-<td>2109</td>
-<td>32.5</td>
-</tr>
-<tr class="odd">
-<td>Fair</td>
-<td>1394</td>
-<td>21.5</td>
-</tr>
-<tr class="even">
-<td>Poor</td>
-<td>625</td>
-<td>9.6</td>
-</tr>
-<tr class="odd">
-<td>Don’t Know / Not&nbsp;&nbsp;&nbsp;Sure</td>
-<td>18</td>
-<td>0.3</td>
-</tr>
-<tr class="even">
-<td>Refused</td>
-<td>12</td>
-<td>0.2</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Poor Physical Health Days / Mo.</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>1-7</td>
-<td>2288</td>
-<td>35.2</td>
-</tr>
-<tr class="even">
-<td>8-14</td>
-<td>514</td>
-<td>7.9</td>
-</tr>
-<tr class="odd">
-<td>15-21</td>
-<td>484</td>
-<td>7.5</td>
-</tr>
-<tr class="even">
-<td>&gt;21</td>
-<td>1123</td>
-<td>17.3</td>
-</tr>
-<tr class="odd">
-<td>Don’t Know / Not Sure</td>
-<td>197</td>
-<td>3.0</td>
-</tr>
-<tr class="even">
-<td>Refused</td>
-<td>1816</td>
-<td>28.0</td>
-</tr>
-<tr class="odd">
-<td>Blank / Missing</td>
-<td>69</td>
-<td>1.1</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Poor Mental Health Days Mo.</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>1-7</td>
-<td>2008</td>
-<td>30.9</td>
-</tr>
-<tr class="odd">
-<td>8-14</td>
-<td>562</td>
-<td>8.7</td>
-</tr>
-<tr class="even">
-<td>15-21</td>
-<td>598</td>
-<td>9.2</td>
-</tr>
-<tr class="odd">
-<td>&gt;21</td>
-<td>958</td>
-<td>14.8</td>
-</tr>
-<tr class="even">
-<td>Don’t Know / Not Sure</td>
-<td>130</td>
-<td>2.0</td>
-</tr>
-<tr class="odd">
-<td>Refused</td>
-<td>2155</td>
-<td>33.2</td>
-</tr>
-<tr class="even">
-<td>Blank / Missing</td>
-<td>80</td>
-<td>1.2</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Poor Health Days Affected ADL / Mo.</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>1-7</td>
-<td>1454</td>
-<td>22.4</td>
-</tr>
-<tr class="even">
-<td>8-14</td>
-<td>395</td>
-<td>6.1</td>
-</tr>
-<tr class="odd">
-<td>15-21</td>
-<td>487</td>
-<td>7.5</td>
-</tr>
-<tr class="even">
-<td>&gt;21</td>
-<td>718</td>
-<td>11.1</td>
-</tr>
-<tr class="odd">
-<td>Don’t Know / Not Sure</td>
-<td>106</td>
-<td>1.6</td>
-</tr>
-<tr class="even">
-<td>Refused</td>
-<td>3282</td>
-<td>50.6</td>
-</tr>
-<tr class="odd">
-<td>Blank / Missing</td>
-<td>49</td>
-<td>0.8</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Education</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Less than High School</td>
-<td>456</td>
-<td>7.0</td>
-</tr>
-<tr class="odd">
-<td>High School or GED</td>
-<td>1663</td>
-<td>25.6</td>
-</tr>
-<tr class="even">
-<td>Some College</td>
-<td>2040</td>
-<td>31.4</td>
-</tr>
-<tr class="odd">
-<td>4 Years College or&nbsp;&nbsp;&nbsp;More</td>
-<td>2297</td>
-<td>35.4</td>
-</tr>
-<tr class="even">
-<td>Refused</td>
-<td>35</td>
-<td>0.5</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Annual Income</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>≤ $24,999</td>
-<td>1124</td>
-<td>17.3</td>
-</tr>
-<tr class="even">
-<td>$25,000 - $34,999</td>
-<td>778</td>
-<td>12.0</td>
-</tr>
-<tr class="odd">
-<td>$35,000 - $49,999</td>
-<td>784</td>
-<td>12.1</td>
-</tr>
-<tr class="even">
-<td>$50,000 - $74,999</td>
-<td>910</td>
-<td>14.0</td>
-</tr>
-<tr class="odd">
-<td>$75,000 - $99,999</td>
-<td>681</td>
-<td>10.5</td>
-</tr>
-<tr class="even">
-<td>≥$100,000</td>
-<td>994</td>
-<td>15.3</td>
-</tr>
-<tr class="odd">
-<td>Don’t Know / Not Sure</td>
-<td>580</td>
-<td>8.9</td>
-</tr>
-<tr class="even">
-<td>Refused</td>
-<td>640</td>
-<td>9.9</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Sex</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Male</td>
-<td>2682</td>
-<td>41.3</td>
-</tr>
-<tr class="even">
-<td>Female</td>
-<td>3809</td>
-<td>58.7</td>
-</tr>
-</tbody>
-</table>
-<p>Source: Centers for Disease Control and Prevention (CDC). (2023). Behavioral Risk Factor Surveillance System.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;dplyr&quot;)    # alternative installation of the %&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: usethis</code></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;ieb2/classpackage&quot;</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Using GitHub PAT from the git credential store.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Downloading GitHub repo ieb2/classpackage@HEAD</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+── R CMD build ─────────────────────────────────────────────────────────────────
+* checking for file &#39;C:\Users\nerdy\AppData\Local\Temp\RtmpSCMd92\remotes31444ba1d99\ieb2-classpackage-c8ef0a1/DESCRIPTION&#39; ... OK
+* preparing &#39;classpackage&#39;:
+* checking DESCRIPTION meta-information ... OK
+* installing the package to process help pages
+Loading required namespace: classpackage
+* saving partial Rd database
+* checking for LF line-endings in source and make files and shell scripts
+* checking for empty or unneeded directories
+* building &#39;classpackage_0.0.0.9000.tar.gz&#39;
+</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Installing package into &#39;C:/Users/nerdy/AppData/Local/R/win-library/4.4&#39;
+(as &#39;lib&#39; is unspecified)</code></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classpackage)<span class="co">#install.packages(&quot;glmtoolbox&quot;)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggpubr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: purrr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tidyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dplyr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: &#39;dplyr&#39;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ readr     2.1.5     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classpackage)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span></code></pre></div>
+</div>
+<p><strong>Review</strong></p>
+<p>The Behavioral Risk Factor Surveillance System (BRFSS) is a collection of telephone survey data. BRFSS contains deidentified demographic information along with acute and chronic disease status, healthcare and dental care access, insurance information, and a variety of socioeconomic indicators. The original dataset had &gt;400,000 observations, which I filtered down to Florida residents and just a few variables for this initial assessment. I believe this would be an excellent candidate for QR.</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#FILTERING FOR FL, SELECTING VARIABLES</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>brfss<span class="ot">&lt;-</span><span class="fu">read.xport</span>(<span class="st">&quot;LLCP2022.XPT&quot;</span>) </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfss <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(X_STATE <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GENHLTH, PHYSHLTH, MENTHLTH, POORHLTH, EDUCA, INCOME3, FLUSHOT7, SEXVAR)<span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(GENHLTH) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  GENHLTH    n
+1       1  590
+2       2 1743
+3       3 2109
+4       4 1394
+5       5  625
+6       7   18
+7       9   12</code></pre>
+</div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(PHYSHLTH) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   PHYSHLTH    n
+1         1  385
+2         2  597
+3         3  395
+4         4  212
+5         5  408
+6         6   72
+7         7  219
+8         8   51
+9         9    5
+10       10  283
+11       11    4
+12       12   31
+13       13    7
+14       14  133
+15       15  266
+16       16    7
+17       17    7
+18       18    8
+19       19    1
+20       20  174
+21       21   21
+22       22    4
+23       23    2
+24       24    2
+25       25   69
+26       26    6
+27       27    5
+28       28   30
+29       29   12
+30       30  993
+31       77  197
+32       88 1816
+33       99   69</code></pre>
+</div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MENTHLTH) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   MENTHLTH    n
+1         1  321
+2         2  500
+3         3  335
+4         4  177
+5         5  462
+6         6   52
+7         7  161
+8         8   47
+9         9    9
+10       10  382
+11       11    3
+12       12   39
+13       13    2
+14       14   80
+15       15  327
+16       16    8
+17       17    2
+18       18   13
+19       19    1
+20       20  237
+21       21   10
+22       22    3
+23       23    4
+24       24    2
+25       25   83
+26       26    3
+27       27    6
+28       28   30
+29       29    7
+30       30  820
+31       77  130
+32       88 2155
+33       99   80</code></pre>
+</div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(POORHLTH) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   POORHLTH    n
+1         1  260
+2         2  374
+3         3  212
+4         4  132
+5         5  304
+6         6   54
+7         7  118
+8         8   36
+9         9    5
+10       10  259
+11       11    1
+12       12   28
+13       13    2
+14       14   64
+15       15  270
+16       16    7
+17       17    6
+18       18   13
+19       19    1
+20       20  181
+21       21    9
+22       22    5
+23       23    1
+24       24    2
+25       25   55
+26       26    4
+27       27    2
+28       28   13
+29       29    3
+30       30  633
+31       77  106
+32       88 3282
+33       99   49</code></pre>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(EDUCA) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EDUCA    n
+1     1    8
+2     2  114
+3     3  334
+4     4 1663
+5     5 2040
+6     6 2297
+7     9   35</code></pre>
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(INCOME3) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   INCOME3   n
+1        1 187
+2        2 234
+3        3 291
+4        4 412
+5        5 778
+6        6 784
+7        7 910
+8        8 681
+9        9 564
+10      10 218
+11      11 212
+12      77 580
+13      99 640</code></pre>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(FLUSHOT7) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FLUSHOT7    n
+1        1 2986
+2        2 3450
+3        7   40
+4        9   15</code></pre>
+</div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SEXVAR) </span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  SEXVAR    n
+1      1 2682
+2      2 3809</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gen =</span> <span class="fu">case_when</span>((GENHLTH <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> <span class="st">&#39;Excellent&#39;</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                         (GENHLTH <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">~</span> <span class="st">&#39;Very Good&#39;</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                         (GENHLTH <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">~</span> <span class="st">&#39;Good&#39;</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>                         (GENHLTH <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">~</span> <span class="st">&#39;Fair&#39;</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                         (GENHLTH <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">~</span> <span class="st">&#39;Poor&#39;</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>                         (GENHLTH <span class="sc">==</span> <span class="dv">7</span>) <span class="sc">~</span> <span class="st">&#39;Not Sure&#39;</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>                         (GENHLTH <span class="sc">==</span> <span class="dv">9</span>) <span class="sc">~</span> <span class="st">&#39;Refused&#39;</span>,))</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">phy =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">&amp;</span> PHYSHLTH <span class="sc">&lt;=</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">&#39;1-7&#39;</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">&amp;</span> PHYSHLTH <span class="sc">&lt;=</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">&#39;8-14&#39;</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">&amp;</span> PHYSHLTH <span class="sc">&lt;=</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">&#39;15-21&#39;</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">&gt;=</span> <span class="dv">22</span> <span class="sc">&amp;</span> PHYSHLTH <span class="sc">&lt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">&#39;&gt;21&#39;</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">==</span> <span class="dv">77</span> <span class="sc">~</span> <span class="st">&#39;Not Sure&#39;</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">==</span> <span class="dv">88</span> <span class="sc">~</span> <span class="st">&#39;None&#39;</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    PHYSHLTH <span class="sc">==</span> <span class="dv">99</span> <span class="sc">~</span> <span class="st">&#39;Refused&#39;</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">men =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">&amp;</span> MENTHLTH <span class="sc">&lt;=</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">&#39;1-7&#39;</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">&amp;</span> MENTHLTH <span class="sc">&lt;=</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">&#39;8-14&#39;</span>,</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">&amp;</span> MENTHLTH <span class="sc">&lt;=</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">&#39;15-21&#39;</span>,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">&gt;=</span> <span class="dv">22</span> <span class="sc">&amp;</span> MENTHLTH <span class="sc">&lt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">&#39;&gt;21&#39;</span>,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">==</span> <span class="dv">77</span> <span class="sc">~</span> <span class="st">&#39;Not Sure&#39;</span>,</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">==</span> <span class="dv">88</span> <span class="sc">~</span> <span class="st">&#39;None&#39;</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    MENTHLTH <span class="sc">==</span> <span class="dv">99</span> <span class="sc">~</span> <span class="st">&#39;Refused&#39;</span>,</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">poor =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">&amp;</span> POORHLTH <span class="sc">&lt;=</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">&#39;1-7&#39;</span>,</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">&amp;</span> POORHLTH <span class="sc">&lt;=</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">&#39;8-14&#39;</span>,</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">&amp;</span> POORHLTH <span class="sc">&lt;=</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">&#39;15-21&#39;</span>,</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">&gt;=</span> <span class="dv">22</span> <span class="sc">&amp;</span> POORHLTH <span class="sc">&lt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">&#39;&gt;21&#39;</span>,</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">==</span> <span class="dv">77</span> <span class="sc">~</span> <span class="st">&#39;Not Sure&#39;</span>,</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">==</span> <span class="dv">88</span> <span class="sc">~</span> <span class="st">&#39;None&#39;</span>,</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>    POORHLTH <span class="sc">==</span> <span class="dv">99</span> <span class="sc">~</span> <span class="st">&#39;Refused&#39;</span>,</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edu =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>    EDUCA <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">&amp;</span> EDUCA <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">&#39;Less than High School&#39;</span>,</span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>    EDUCA <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">&#39;High School or GED&#39;</span>,</span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>    EDUCA <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">&#39;Some College&#39;</span>,</span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>    EDUCA <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">&#39;4 Years of College or Higher&#39;</span>,</span>
+<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>    EDUCA <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="st">&#39;Refused&#39;</span>,</span>
+<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>    SEXVAR <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&#39;Male&#39;</span>,</span>
+<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a>    SEXVAR <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&#39;Female&#39;</span>,</span>
+<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>brfssfl <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inc =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">&amp;</span> INCOME3 <span class="sc">&lt;=</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">&#39;&lt;$25,000&#39;</span>,</span>
+<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">&#39;$25,000-$34,999&#39;</span>,</span>
+<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">&#39;$35,000-$49,999&#39;</span>,</span>
+<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">&#39;$50,000-$74,999&#39;</span>,</span>
+<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">==</span> <span class="dv">8</span> <span class="sc">~</span> <span class="st">&#39;$75,000-$99,999&#39;</span>,</span>
+<span id="cb39-62"><a href="#cb39-62" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">&gt;=</span> <span class="dv">9</span> <span class="sc">&amp;</span> INCOME3 <span class="sc">&lt;=</span> <span class="dv">11</span> <span class="sc">~</span> <span class="st">&#39;&gt;$100,000&#39;</span>,</span>
+<span id="cb39-63"><a href="#cb39-63" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">==</span> <span class="dv">77</span> <span class="sc">~</span> <span class="st">&#39;Not Sure&#39;</span>,</span>
+<span id="cb39-64"><a href="#cb39-64" aria-hidden="true" tabindex="-1"></a>    INCOME3 <span class="sc">==</span> <span class="dv">99</span> <span class="sc">~</span> <span class="st">&#39;Refused&#39;</span>,</span>
+<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>count_inc <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(inc)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_inc)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              inc    n
+1 $25,000-$34,999  778
+2 $35,000-$49,999  784
+3 $50,000-$74,999  910
+4 $75,000-$99,999  681
+5        &lt;$25,000 1124
+6       &gt;$100,000  994
+7        Not Sure  580
+8         Refused  640</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>brfssfl.inc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">income =</span> <span class="fu">c</span>(<span class="st">&quot;&lt;$25,000&quot;</span>, <span class="st">&quot;$25,000-$34,999&quot;</span>, <span class="st">&quot;$35,000-$49,999&quot;</span>, <span class="st">&quot;$50,000-$74,999&quot;</span>, </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;$75,000-$99,999&quot;</span>, <span class="st">&quot;&gt;$100,000&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>),</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">counts =</span> <span class="fu">c</span>(<span class="dv">1124</span>, <span class="dv">778</span>, <span class="dv">784</span>, <span class="dv">910</span>, <span class="dv">681</span>, <span class="dv">994</span>, <span class="dv">580</span>, <span class="dv">640</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>brfssfl.inc<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">factor</span>(brfssfl.inc<span class="sc">$</span>income, </span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;&lt;$25,000&quot;</span>, <span class="st">&quot;$25,000-$34,999&quot;</span>, <span class="st">&quot;$35,000-$49,999&quot;</span>, <span class="st">&quot;$50,000-$74,999&quot;</span>, <span class="st">&quot;$75,000-$99,999&quot;</span>, <span class="st">&quot;&gt;$100,000&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>))</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brfssfl.inc, <span class="fu">aes</span>(<span class="at">x =</span> income, <span class="at">y =</span> counts)) <span class="sc">+</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income (n=1691)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Income Range&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Observations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="brfsstables_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>count_gen <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gen)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_gen)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        gen    n
+1 Excellent  590
+2      Fair 1394
+3      Good 2109
+4  Not Sure   18
+5      Poor  625
+6   Refused   12
+7 Very Good 1743</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>brfssfl.gen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Health =</span> <span class="fu">c</span>(<span class="st">&quot;Excellent&quot;</span>, <span class="st">&quot;Very Good&quot;</span>, <span class="st">&quot;Good&quot;</span>, <span class="st">&quot;Fair&quot;</span>, <span class="st">&quot;Poor&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>),</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">counts =</span> <span class="fu">c</span>(<span class="dv">590</span>, <span class="dv">1743</span>, <span class="dv">2109</span>, <span class="dv">1394</span>, <span class="dv">625</span>, <span class="dv">18</span>, <span class="dv">12</span>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>brfssfl.gen<span class="sc">$</span>Health <span class="ot">&lt;-</span> <span class="fu">factor</span>(brfssfl.gen<span class="sc">$</span>Health, </span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Excellent&quot;</span>, <span class="st">&quot;Very Good&quot;</span>, <span class="st">&quot;Good&quot;</span>, <span class="st">&quot;Fair&quot;</span>, <span class="st">&quot;Poor&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>))</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brfssfl.gen, <span class="fu">aes</span>(<span class="at">x =</span> Health, <span class="at">y =</span> counts)) <span class="sc">+</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Self-Assessed General Health Status (n=1691)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Observations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="brfsstables_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>count_men <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(men)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_men)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       men    n
+1      1-7 2008
+2    15-21  598
+3     8-14  562
+4      &gt;21  958
+5     None 2155
+6 Not Sure  130
+7  Refused   80</code></pre>
+</div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>brfssfl.men <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mental_Health =</span> <span class="fu">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;1-7&quot;</span>, <span class="st">&quot;8-14&quot;</span>, <span class="st">&quot;15-21&quot;</span>, <span class="st">&quot;&gt;21&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">counts =</span> <span class="fu">c</span>(<span class="dv">2155</span>, <span class="dv">2008</span>, <span class="dv">562</span>, <span class="dv">598</span>, <span class="dv">958</span>, <span class="dv">130</span>, <span class="dv">80</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>brfssfl.men<span class="sc">$</span>Mental_Health <span class="ot">&lt;-</span> <span class="fu">factor</span>(brfssfl.men<span class="sc">$</span>Mental_Health, </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;1-7&quot;</span>, <span class="st">&quot;8-14&quot;</span>, <span class="st">&quot;15-21&quot;</span>, <span class="st">&quot;&gt;21&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>))</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brfssfl.men, <span class="fu">aes</span>(<span class="at">x =</span> Mental_Health, <span class="at">y =</span> counts)) <span class="sc">+</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Self-Assessed Days per Month of Poor Mental Health (n=1691)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Days per Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Observations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="brfsstables_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb49"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>count_poor <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(poor)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_poor)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      poor    n
+1      1-7 1454
+2    15-21  487
+3     8-14  395
+4      &gt;21  718
+5     None 3282
+6 Not Sure  106
+7  Refused   49</code></pre>
+</div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>brfssfl.poor <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Poor_Health =</span> <span class="fu">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;1-7&quot;</span>, <span class="st">&quot;8-14&quot;</span>, <span class="st">&quot;15-21&quot;</span>, <span class="st">&quot;&gt;21&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>),</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">counts =</span> <span class="fu">c</span>(<span class="dv">2155</span>, <span class="dv">2008</span>, <span class="dv">562</span>, <span class="dv">598</span>, <span class="dv">958</span>, <span class="dv">130</span>, <span class="dv">80</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>brfssfl.poor<span class="sc">$</span>Poor_Health <span class="ot">&lt;-</span> <span class="fu">factor</span>(brfssfl.poor<span class="sc">$</span>Poor_Health, </span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;1-7&quot;</span>, <span class="st">&quot;8-14&quot;</span>, <span class="st">&quot;15-21&quot;</span>, <span class="st">&quot;&gt;21&quot;</span>, <span class="st">&quot;Not Sure&quot;</span>, <span class="st">&quot;Refused&quot;</span>))</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brfssfl.poor, <span class="fu">aes</span>(<span class="at">x =</span> Poor_Health, <span class="at">y =</span> counts)) <span class="sc">+</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Self-Assessed Days per Month of Poor Physical Health (n=1691)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Days per Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Observations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="brfsstables_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb52"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>count_sex <span class="ot">&lt;-</span> brfssfl <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(count_sex)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     sex    n
+1 Female 3809
+2   Male 2682</code></pre>
+</div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>brfssfl.sex <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">counts =</span> <span class="fu">c</span>(<span class="dv">2682</span>, <span class="dv">3809</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>brfssfl.sex<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(brfssfl.sex<span class="sc">$</span>Sex, </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brfssfl.sex, <span class="fu">aes</span>(<span class="at">x =</span> Sex, <span class="at">y =</span> counts)) <span class="sc">+</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Sex (n=1691)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Sex&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Observations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="brfsstables_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
 
 </main>
 <!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
+<script id = "quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -793,7 +1039,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 
+</body>
 
-
-
-</body></html>
+</html>
