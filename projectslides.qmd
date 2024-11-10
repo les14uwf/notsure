@@ -31,11 +31,84 @@ library(ggpubr)
 
 Authors: Hamilton Hewett and Laura Sikes
 
-## Introduction
+## Introduction: Regression Overview
 
-Talking about QR here
+- Regression is a method used to predict outcomes based on the behavior of variables within a dataset relative to a mean.
+- Of an infinite number of lines that can be drawn through the data, the one best describing an overall relationship is the one with the smallest sum of the square of the errors.
+- The errors measure the distance from each data point to the line, then each value is squared, and those squares are summed.  
+- The distances are squared in order to eliminate the negative properties of the distances that are found between the line and the data points below it.  
+- The line of best fit is one that produces the smallest sum of these squares.  
+- The formula for the regression line is
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+
+## Introduction: Regression Overview
+In the regssion line equation
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+$$
+\beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
+$$ 
+
+
+The intercept $\beta_0$ is
+
+$$
+\beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
+$$
+- Based on the above, predictions can be made about what would happen along the regression line where there are no data points.
+
+## Introduction: Quantile Regression 
+
+- Quantile regression (QR) is a  statistical approach that divides a distribution into different sections and finds the median point inside each one.  
+- This approach is especially useful when a distribution contains exceedingly high or low values, given that medians are not as influenced by extreme values as compared to means.  
+- QR is often an excellent solution when only one upper or lower end of a distribution contains a key variable.  
+- Variables may enjoy unique relationships within different sections of a distribution (Buhai, 2005). 
+- The equation for QR is
+
+$$
+Q_Y(\tau \mid X) = X \beta(\tau)
+$$
+
+- Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient (Koenker, 2005).
+
+## Introduction: Quantile Regression 
+
+- QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution (Cohen et al., 2016). 
+- Koenker and Machado (1999) identified the absence of a suitable goodness-of-fit assessment for this statistical method.  
+- The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean.  
+- This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.
+
+## Introduction: Quantile Regression, Goodness of Fit
+
+The formula for *R^2^* is as follows:
+
+$$
+R^2 = 1 - \frac{\sum \left(y_i - \hat{y}\right)^2}{\sum \left(y_i - \bar{y}\right)^2}
+$$
+
+- The sum of observed values $y_i$  is subtracted by the sum of fitted values $\hat{y}$ and squared, forming the numerator.  
+- The sum of observed values $y_i$ minus the sum of sample mean $\bar{y}$ and then squared, forming the denominator. 
+- This formula may also be represented as
+
+$$
+R^2 = 1 - \frac{RSS}{TSS}
+$$
+
+where RSS is the residual sum of squares and TSS is the total sum of squares.
+- The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  
+- The theory behind these methods is beyond the scope of this paper.
+
+
+
 
 ## Methodology: Study Design and Data
+
+
 
 -   Cross-sectional study using 2023 Behavioral Risk Factor Surveillance System (BRFSS) published by Centers for Disease Control and Prevention (CDC).
 -   Yearly survey conducted via landline and cellular telephone (CDC, 2024).
