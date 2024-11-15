@@ -1,0 +1,836 @@
+---
+title: "Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Surveillance Survey"
+author: "Laura E. Sikes, MPH, CPH"
+format: html
+self-contained: true
+editor: visual
+knitr:
+  opts_chunk: 
+    echo: false
+    warning: false
+    message: false
+    results: "asis"
+---
+
+```{r}
+
+#install.packages("dplyr")    # alternative installation of the %>%
+#library(devtools)
+#install_github("ieb2/classpackage", force = TRUE)
+#library(classpackage)#install.packages("glmtoolbox")
+#install.packages("devtools")
+
+library(dplyr)       
+library(tidyverse)  
+library(classpackage) 
+library(foreign)      
+library(haven)       
+library(glue)         
+library(tinytex)      
+library(ggpubr)       
+
+
+```
+
+            Regression is a method used to predict outcomes based on the behavior of variables within a dataset relative to a mean.  Of an infinite number of lines that can be drawn through the data, the one best describing an overall relationship is the one with the smallest sum of the square of the errors.  The errors measure the distance from each data point to the line, then each value is squared, and those squares are summed.  The distances are squared in order to eliminate the negative properties of the distances that are found between the line and the data points below it.  The line of best fit is one that produces the smallest sum of these squares.  The formula for the regression line is
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+
+            In the above equation, the slope $\beta_1$ is $$
+\beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
+$$ in which the *x* and *y* values are multiplied and summed, then multiplied by the total number of *x* and *y* observations.  That value is subtracted by the sum of *x* values and the sum of *y* values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the *x* values squared, and then subtracted by the square of sum of all of the *x* values.  The numerator is then divided by the denominator.
+
+The intercept $\beta_0$ is
+
+$$
+\beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
+$$
+
+in which the sum of the *y* values is divided by the number of observations *n*, and then subtracted by the slope $\beta_1$.
+
+            Based on the above, predictions can be made about what would happen along the regression line where there are no data points, provided these predictions do not exceed the minimum and maximum boundaries of the data points.
+
+            Quantile regression (QR) is a unique statistical approach that divides a distribution into different sections and finds the median point inside each one.  This can be done in quartiles, where the distribution is evenly divided at 25% increments; in percentiles, where the distribution is evenly divided at 10% increments; or other types of quantiles where the distribution is divided into other numbers of sections as desired.  This approach is especially useful when a distribution contains exceedingly high or low values, given that medians are not as influenced by extreme values as compared to means.  QR is often an excellent solution when only one upper or lower end of a distribution contains a key variable.  Further, variables may enjoy unique relationships within different sections of a distribution (Buhai, 2005). 
+
+The equation for QR is
+
+$$
+Q_Y(\tau \mid X) = X \beta(\tau)
+$$
+
+where Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient (Koenker, 2005).
+
+            QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution (Cohen et al., 2016).  Koenker and Machado (1999) identified the absence of a suitable goodness-of-fit assessment for this statistical method.  The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean.  This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.  The formula is as follows:
+
+$$
+R^2 = 1 - \frac{\sum \left(y_i - \hat{y}\right)^2}{\sum \left(y_i - \bar{y}\right)^2}
+$$
+
+in which the sum of observed values $y_i$  is subtracted by the sum of fitted values $\hat{y}$ and squared, forming the numerator.  The sum of observed values $y_i$ minus the sum of sample mean $\bar{y}$ and then squared, forming the denominator.  This formula may also be represented as
+
+$$
+R^2 = 1 - \frac{RSS}{TSS}
+$$
+
+where RSS is the residual sum of squares and TSS is the total sum of squares.
+
+           The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  The theory behind these methods is beyond the scope of this paper.
+
+           Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.  For example, Olsen et al. (2017), employed QR in a retrospective cohort study using data from insurer claims to identify factors affecting costs of infections following inpatient surgical procedures.  Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.  QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
+
+            Waldmann (2018) utilized body mass index (BMI) data to illustrate the usefulness of QR.  The author’s goal was to answer questions about the outer portions of the distribution, which in this case was boys with the highest BMI.  QR afforded the author insight into how predictor variables can have stronger or weaker effects within different areas of the distribution. 
+
+            Cohen et al. (2016) used QR to evaluate the relationships between community demographics and perceived resilience.  The authors divided the distribution into percentiles and quartiles, and found that significant relationships existed inside several quantiles that were not significant when using linear regression on the entire distribution. 
+
+            Staffa et al. (2019) employed QR to understand relationships between ventilator dependence and hospital length of stay, suspecting that these relationships changed across different quantiles.  The authors found stronger relationships between the predictor variables inside the upper quantiles of the length of stay outcome. 
+
+            Machado and Silva (2005) explored the use of QR for count data by incorporating artificial smoothness, allowing inferences to be made about the conditional quartiles.  The authors note that count data is often severely skewed, making it an excellent candidate for QR which is more resilient against skewness given its use of medians over means.
+
+            QR is well-represented within the literature and has numerous advantages over traditional regression models when relationships between variables are suspected to change across quantiles.  With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our data.           \
+                                   
+
+# Methods
+
+Study Design and Data
+
+            This is a cross-sectional study using the 2023 Behavioral Risk Factor Surveillance System (BRFSS) dataset published by the Centers for Disease Control and Prevention (CDC). This yearly survey is conducted via landline and cellular telephone, and includes United States residents aged 18 years and older (CDC, 2024). Survey topics include demographic information, socioeconomic factors, physical and mental health status, chronic conditions, as well as behaviors that can impact physical and mental health.
+
+Response Variable
+
+            The response variable considered is days per month a respondent’s poor health affected his or her activities of daily living (ADL). Respondents were asked to assess their own mental and physical health for the previous 30 days and then to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs. Available responses were numeric values 1 – 30, none, refused, or don’t know/[not sure](https://les14uwf.github.io/notsure/notsure.mov).
+
+Predictor Variables
+
+            Predictor variables include weight, sex, education, income, physical health, and mental health. Regarding weight, respondents were asked to approximate their weight in pounds while wearing shoes, with available responses being numeric values 50 – 776, don’t know/not sure, Refused, and a separate indicator for weight measured in kilograms. Education was divided into nine categories as follows: never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused. Income in U.S. dollars was divided as follows: \<10,000, \$10,000 to \< \$15,000, \$15,000 to \< \$20,000, \$20,000 to \< \$25,000, \$25,000 to \< \$35,000, \$35,000 to \< \$50,000, \$50,000 to \< \$75,000, \$75,000 to \< \$100,000, \$100,000 to \< \$150,000, \$150,000 to \< \$200,000, \$200,000 or more, don’t know/not sure, and refused. Regarding physical health or mental health, respondents were asked the number of days during the previous 30 days in which their physical or mental health were not good. Possible responses were numeric values 1 – 30, none, refused, or don’t know/not sure. Regarding sex, respondents were given only the choice between male and female.
+
+Operationalization of Variables
+
+            The dataset was filtered to include only residents of the state of Florida and removed of values containing “Refused,” “Not sure / Don’t know”, or missing. The response variable ADL was filtered to include only numeric responses, and recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.\
+            Regarding predictor variables, education was recoded as follows: “Less than High School,”, “High School or GED,” “Some College”, and “4 Years of College or Higher”. Income was recoded into six groups as follows: “\<\$25,000”, “\$25,000-\$34,999”, “\$35,000-\$49,000”, “\$50,000-\$74,999”, “\$75,000-\$99,999”, and “\>\$100,000”. Physical health and mental health were each recoded into four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.\
+            All statistical analyses were performed using RStudio version 2024.04.2, build 764, “Chocolate Cosmos” release for Windows (Posit Software, PBC, 2024).            
+
+Analytical Method
+
+            QR was performed to explore ADL as a function of weight. The distribution was divided into quartiles (\tau = 0.25, 0.5, 0.75) to find the median values within each. Ordinary least squares regression (OLS) was performed using the same variables.
+
+# Results
+
+            Within this sample (n=1319), the majority (42.6%) of considered respondents reported between 1 to 7 days of poor mental or physical health negatively impacting ADL, followed by \>21 days at 26.3% (Table 1). Nearly one-third (31.9%) reported having greater than 21 days of poor physical health per month, while a similar portion (30.2%) reported having over 21 days of poor physical health. Over one-half (50.2%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000. Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58). This sample is heavily skewed female with only 39.1% (n=493) identifying as male.
+
+```{r}
+#CALLING IN DATA
+brfss<-read_xpt("LLCP2022.XPT") 
+```
+
+```{r}
+#FILTERING FOR FL, SELECTING VARIABLES
+brfss <- brfss %>%
+  rename(state= '_STATE')
+
+brfssfl <-brfss %>%
+filter(state == 12) %>% 
+  select(GENHLTH, PHYSHLTH, MENTHLTH, POORHLTH, EDUCA, INCOME3, WEIGHT2, SEXVAR)%>%
+  na.omit()
+
+```
+
+```{r}
+#OPERATIONALIZATION OF VARIABLES
+brfssfl <- brfssfl %>%
+  filter(GENHLTH < 7)
+
+brfssfl <- brfssfl %>%
+  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
+                         (GENHLTH == 2) ~ 'Very Good',
+                         (GENHLTH == 3) ~ 'Good',
+                         (GENHLTH == 4) ~ 'Fair',
+                         (GENHLTH == 5) ~ 'Poor',
+                         (GENHLTH == 7) ~ 'Not Sure',
+                         (GENHLTH == 9) ~ 'Refused',))
+
+brfssfl <- brfssfl %>%
+  filter(WEIGHT2 < 800)
+
+brfssfl <- brfssfl %>%
+  filter(PHYSHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(phy = case_when(
+    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
+    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
+    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
+    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
+    PHYSHLTH == 77 ~ 'Not Sure',
+    PHYSHLTH == 88 ~ 'None',
+    PHYSHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(MENTHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(men = case_when(
+    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
+    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
+    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
+    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
+    MENTHLTH == 77 ~ 'Not Sure',
+    MENTHLTH == 88 ~ 'None',
+    MENTHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(POORHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(poor = case_when(
+    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
+    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
+    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
+    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
+    POORHLTH == 77 ~ 'Not Sure',
+    POORHLTH == 88 ~ 'None',
+    POORHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(EDUCA < 9)
+
+brfssfl <- brfssfl %>%
+  mutate(edu = case_when(
+    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
+    EDUCA == 4 ~ 'High School or GED',
+    EDUCA == 5 ~ 'Some College',
+    EDUCA == 6 ~ '4 Years of College or Higher',
+    EDUCA == 9 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  mutate(sex = case_when(
+    SEXVAR == 1 ~ 'Male',
+    SEXVAR == 2 ~ 'Female',
+
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(INCOME3 < 12)
+
+brfssfl <- brfssfl %>%
+  mutate(inc = case_when(
+    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
+    INCOME3 == 5 ~ '$25,000-$34,999',
+    INCOME3 == 6 ~ '$35,000-$49,999',
+    INCOME3 == 7 ~ '$50,000-$74,999',
+    INCOME3 == 8 ~ '$75,000-$99,999',
+    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
+    INCOME3 == 77 ~ 'Not Sure',
+    INCOME3 == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(GENHLTH < 7)
+
+brfssfl <- brfssfl %>%
+  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
+                         (GENHLTH == 2) ~ 'Very Good',
+                         (GENHLTH == 3) ~ 'Good',
+                         (GENHLTH == 4) ~ 'Fair',
+                         (GENHLTH == 5) ~ 'Poor',
+                         (GENHLTH == 7) ~ 'Not Sure',
+                         (GENHLTH == 9) ~ 'Refused',))
+
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(WEIGHT2 < 800)
+
+
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(PHYSHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(phy = case_when(
+    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
+    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
+    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
+    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
+    PHYSHLTH == 77 ~ 'Not Sure',
+    PHYSHLTH == 88 ~ 'None',
+    PHYSHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(MENTHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(men = case_when(
+    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
+    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
+    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
+    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
+    MENTHLTH == 77 ~ 'Not Sure',
+    MENTHLTH == 88 ~ 'None',
+    MENTHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(POORHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(poor = case_when(
+    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
+    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
+    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
+    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
+    POORHLTH == 77 ~ 'Not Sure',
+    POORHLTH == 88 ~ 'None',
+    POORHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(EDUCA < 9)
+
+brfssfl <- brfssfl %>%
+  mutate(edu = case_when(
+    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
+    EDUCA == 4 ~ 'High School or GED',
+    EDUCA == 5 ~ 'Some College',
+    EDUCA == 6 ~ '4 Years of College or Higher',
+    EDUCA == 9 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  mutate(sex = case_when(
+    SEXVAR == 1 ~ 'Male',
+    SEXVAR == 2 ~ 'Female',
+
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(INCOME3 < 12)
+
+brfssfl <- brfssfl %>%
+  mutate(inc = case_when(
+    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
+    INCOME3 == 5 ~ '$25,000-$34,999',
+    INCOME3 == 6 ~ '$35,000-$49,999',
+    INCOME3 == 7 ~ '$50,000-$74,999',
+    INCOME3 == 8 ~ '$75,000-$99,999',
+    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
+    INCOME3 == 77 ~ 'Not Sure',
+    INCOME3 == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+```
+
+Table 1.
+
+| Category                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
+| **Self-Assessed General Health**        |          |      |
+|    Excellent                            |       42 |  3.3 |
+|    Very Good                            |      205 | 16.3 |
+|    Good                                 |      383 | 30.4 |
+|    Fair                                 |      424 | 33.6 |
+|    Poor                                 |      265 | 21.0 |
+|                                         |          |      |
+| **Poor Physical Health Days / Mo.**     |          |      |
+|    1-7                                  |      537 | 42.6 |
+|    8-14                                 |      168 | 13.3 |
+|    15-21                                |      212 | 16.8 |
+|    \>21                                 |      402 | 31.9 |
+|                                         |          |      |
+| **Poor Mental Health Days Mo.**         |          |      |
+|    1-7                                  |      481 | 38.1 |
+|    8-14                                 |      210 | 16.7 |
+|    15-21                                |      247 | 19.6 |
+|    \>21                                 |      381 | 30.2 |
+|                                         |          |      |
+| **Poor Health Days Affected ADL / Mo.** |          |      |
+|    1-7                                  |      549 | 43.5 |
+|    8-14                                 |      191 | 15.1 |
+|    15-21                                |      247 | 19.6 |
+|    \>21                                 |      332 | 26.3 |
+|                                         |          |      |
+| **Education**                           |          |      |
+|    Less than High School                |      104 |  8.2 |
+|    High School or GED                   |      345 | 27.4 |
+|    Some College                         |      450 | 35.7 |
+|    4 Years College or More              |      420 | 33.3 |
+|                                         |          |      |
+| **Annual Income**                       |          |      |
+|    ≤ \$24,999                           |      413 | 32.8 |
+|    \$25,000 - \$34,999                  |      220 | 17.4 |
+|    \$35,000 - \$49,999                  |      183 | 14.5 |
+|    \$50,000 - \$74,999                  |      192 | 15.2 |
+|    \$75,000 - \$99,999                  |      146 | 11.6 |
+|    ≥\$100,000                           |      165 | 13.1 |
+|                                         |          |      |
+| **Sex**                                 |          |      |
+|    Male                                 |      493 | 39.1 |
+|    Female                               |      826 | 65.5 |
+
+Figure 1.
+
+```{r}
+library(ggplot2)
+
+brfssfl.inc <- data.frame(
+  income = c("<$25,000", "$25,000-$34,999", "$35,000-$49,999", "$50,000-$74,999", 
+             "$75,000-$99,999", ">$100,000"),
+  counts = c(413, 220, 183, 192, 146, 165)
+)
+
+brfssfl.inc$income <- factor(brfssfl.inc$income, 
+                             levels = c("<$25,000", "$25,000-$34,999", "$35,000-$49,999", "$50,000-$74,999", "$75,000-$99,999", ">$100,000"))
+
+ggplot(brfssfl.inc, aes(x = income, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Annual Income (n=1319)", x = "Income Range", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+Figure 2.
+
+```{r}
+count_phy <- brfssfl %>%
+  count(phy)
+
+library(ggplot2)
+
+brfssfl.phy <- data.frame(
+  Physical_Health = c("1-7", "8-14", "15-21", ">21"),
+  counts = c(537, 168, 212, 402)
+)
+
+brfssfl.phy$Physical_Health <- factor(brfssfl.phy$Physical_Health, 
+                             levels = c("1-7", "8-14", "15-21", ">21"))
+
+ggplot(brfssfl.phy, aes(x = Physical_Health, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Self-Assessed Days per Month of Poor Physical Health (n=1319)", x = "Health", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+Figure 3.
+
+```{r}
+count_gen <- brfssfl %>%
+  count(gen)
+
+library(ggplot2)
+
+brfssfl.gen <- data.frame(
+  Health = c("Excellent", "Very Good", "Good", "Fair", "Poor"),
+  counts = c(42, 205, 383, 424, 265)
+)
+
+brfssfl.gen$Health <- factor(brfssfl.gen$Health, 
+                             levels = c("Excellent", "Very Good", "Good", "Fair", "Poor"))
+
+ggplot(brfssfl.gen, aes(x = Health, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Self-Assessed General Health Status (n=1319)", x = "Health", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Figure 4.
+
+```{r}
+
+count_men <- brfssfl %>%
+  count(men)
+
+library(ggplot2)
+
+brfssfl.men <- data.frame(
+  Mental_Health = c("1-7", "8-14", "15-21", ">21"),
+  counts = c(481, 210, 247, 381)
+)
+
+brfssfl.men$Mental_Health <- factor(brfssfl.men$Mental_Health, 
+                             levels = c("1-7", "8-14", "15-21", ">21"))
+
+ggplot(brfssfl.men, aes(x = Mental_Health, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Self-Assessed Days per Month of Poor Mental Health (n=1319)", x = "Days per Month", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Figure 5.
+
+```{r}
+count_poor <- brfssfl %>%
+  count(poor)
+
+library(ggplot2)
+
+brfssfl.poor <- data.frame(
+  Poor_Health = c("1-7", "8-14", "15-21", ">21"),
+  counts = c(549, 191, 247, 332)
+)
+
+brfssfl.poor$Poor_Health <- factor(brfssfl.poor$Poor_Health, 
+                             levels = c("None", "1-7", "8-14", "15-21", ">21"))
+
+ggplot(brfssfl.poor, aes(x = Poor_Health, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Poor Health Days per Month Affecting ADLs (n=1319)", x = "Days per Month", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Figure 6.
+
+```{r}
+count_sex <- brfssfl %>%
+  count(sex)
+
+library(ggplot2)
+
+brfssfl.sex <- data.frame(
+  Sex = c("Male", "Female"),
+  counts = c(783, 478)
+)
+
+brfssfl.sex$Sex <- factor(brfssfl.sex$Sex, 
+                             levels = c("Male", "Female"))
+
+ggplot(brfssfl.sex, aes(x = Sex, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Sex (n=1319)", x = "Sex", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Figure 7.
+
+```{r}
+count_edu <- brfssfl %>%
+  count(edu)
+
+library(ggplot2)
+
+brfssfl.edu <- data.frame(
+  Education = c("Less than High School", "High School or GED", "Some College", "4 Years College or More"),
+  counts = c(104, 345, 450, 420)
+)
+
+brfssfl.edu$Education <- factor(brfssfl.edu$Education, 
+                             levels = c("Less than High School", "High School or GED", "Some College", "4 Years College or More"))
+
+ggplot(brfssfl.edu 
+       , aes(x = Education, y = counts)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Level of Education Achieved (n=1319)", x = "Education", y = "Observations") +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Figure 8.
+
+```{r}
+dfwt <- data.frame(brfssfl$WEIGHT2)
+
+
+ggplot(dfwt, aes(x = brfssfl.WEIGHT2)) +
+  geom_histogram(binwidth = 10) + 
+    labs(title = "Weight in Pounds (n=1319)", x = "Weight (lbs)", y = "Observations") 
+```
+
+Figure 9.
+
+```{r}
+library(ggplot2)
+#install.packages("caret")
+library(caret)
+
+
+library(pacman)
+p_load(dplyr,janitor, ggplot2, quantreg,sjPlot, plotly)
+
+ggplot(brfssfl, aes(x=WEIGHT2, 
+                          y=POORHLTH, col=WEIGHT2)) + geom_point() +
+geom_smooth(method = "lm", col="blue") +
+  xlab("Weight (lbs)") + ylab("MENTHLTH")
+
+```
+
+Figure 10.
+
+```{r}
+library(ggplot2)
+#install.packages("caret")
+library(caret)
+
+
+library(pacman)
+p_load(dplyr,janitor, ggplot2, quantreg,sjPlot, plotly)
+
+plot(POORHLTH ~ WEIGHT2, data = brfssfl, 
+     xlab = "Weight (lbs)",
+     ylab = "Poor Health (Days)", 
+     main = "Poor Health vs. Weight") 
+abline(lm(POORHLTH ~ WEIGHT2, data = brfssfl), col="blue", lwd = 3) #OLS
+abline(rq(POORHLTH ~ WEIGHT2, tau=0.5, data = brfssfl), col="green",  lwd = 4) #QR 0.5
+
+
+
+```
+
+Figure 11.
+
+```{r}
+library(ggplot2)
+#install.packages("caret")
+library(caret)
+
+
+library(pacman)
+p_load(dplyr,janitor, ggplot2, quantreg,sjPlot, plotly)
+
+
+plot(POORHLTH ~ WEIGHT2, data = brfssfl, 
+     xlab = "Weight (lbs)",  
+     ylab = "Poor Health (Days)", 
+     main = "Poor Health vs. Weight")
+abline(lm(POORHLTH ~ WEIGHT2, data = brfssfl), col="blue", lwd = 3) #OLS
+abline(rq(POORHLTH ~ WEIGHT2, tau=0.5, data = brfssfl), col="green",  lwd = 4) #QR 0.5
+abline(rq(POORHLTH ~ WEIGHT2, tau=0.25, data = brfssfl), col="black",  lwd = 5) #QR 0.25
+abline(rq(POORHLTH ~ WEIGHT2, tau=0.75, data = brfssfl), col="yellow",  lwd = 6) #QR 0.75
+```
+
+Figure 12.
+
+```{r}
+
+
+
+ggplot(brfssfl, aes(WEIGHT2, MENTHLTH)) + 
+    geom_point() +  # Add scatter plot points
+    geom_smooth(method = "lm", se = FALSE, color = "blue") + 
+    geom_quantile(color = "red", quantiles = 0.5) +  
+    geom_quantile(color = "black", alpha = 0.2, quantiles = seq(0.05, 0.95, by = 0.05)) +  
+    xlab("Weight (lbs)") +  
+    ylab("Mental Health (Days)") +  
+    ggtitle("Mental Health vs. Weight") 
+```
+
+```{r}
+library(quantreg)
+rqfit <- rq(MENTHLTH ~ WEIGHT2, data = brfssfl)
+rqfit
+summary(rqfit)
+
+plot(MENTHLTH ~ WEIGHT2, data = brfssfl, pch = 16, main = "MENTHLTH ~ WEIGHT2")
+abline(lm(MENTHLTH ~ WEIGHT2, data = brfssfl), col = "red", lty = 2)
+abline(rq(MENTHLTH ~ WEIGHT2, data = brfssfl), col = "blue", lty = 2)
+legend("topright", legend = c("lm", "rq"), col = c("red", "blue"), lty = 2)
+
+```
+
+```{r}
+library(quantreg)
+library(stargazer)
+results = 'hide'
+stargazer(brfssfl, type="text")
+
+qr_25 = rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
+qr_50 = rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
+qr_75 = rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
+
+
+
+summary(qr_25)
+summary(qr_50)
+summary(qr_75)
+
+
+```
+
+```{r}
+# 95% CIS
+results = 'hide'
+
+library(quantreg)
+
+
+
+
+
+qr_25 <- rq(WEIGHT2 ~ MENTHLTH, tau = 0.25, data = brfssfl)
+
+summary_qr_25 <- summary(qr_25)
+
+coefficients <- summary_qr_25$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+menthlth_estimate <- coefficients[2, 1]
+menthlth_se <- coefficients[2, 2]
+menthlth_ci_lower <- menthlth_estimate - z_score * menthlth_se
+menthlth_ci_upper <- menthlth_estimate + z_score * menthlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("MENTHLTH CI (95%): [", menthlth_ci_lower, ", ", menthlth_ci_upper, "]\n")
+
+
+
+
+
+qr_50 <- rq(WEIGHT2 ~ MENTHLTH, tau = 0.50, data = brfssfl)
+
+summary_qr_50 <- summary(qr_50)
+
+coefficients <- summary_qr_50$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+menthlth_estimate <- coefficients[2, 1]
+menthlth_se <- coefficients[2, 2]
+menthlth_ci_lower <- menthlth_estimate - z_score * menthlth_se
+menthlth_ci_upper <- menthlth_estimate + z_score * menthlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("MENTHLTH CI (95%): [", menthlth_ci_lower, ", ", menthlth_ci_upper, "]\n")
+
+
+
+
+
+qr_75 <- rq(WEIGHT2 ~ MENTHLTH, tau = 0.75, data = brfssfl)
+
+summary_qr_75 <- summary(qr_75)
+
+coefficients <- summary_qr_75$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+menthlth_estimate <- coefficients[2, 1]
+menthlth_se <- coefficients[2, 2]
+menthlth_ci_lower <- menthlth_estimate - z_score * menthlth_se
+menthlth_ci_upper <- menthlth_estimate + z_score * menthlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("MENTHLTH CI (95%): [", menthlth_ci_lower, ", ", menthlth_ci_upper, "]\n")
+
+
+
+
+
+qr_95 <- rq(WEIGHT2 ~ MENTHLTH, tau = 0.95, data = brfssfl)
+
+summary_qr_95 <- summary(qr_95)
+
+coefficients <- summary_qr_95$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+menthlth_estimate <- coefficients[2, 1]
+menthlth_se <- coefficients[2, 2]
+menthlth_ci_lower <- menthlth_estimate - z_score * menthlth_se
+menthlth_ci_upper <- menthlth_estimate + z_score * menthlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("MENTHLTH CI (95%): [", menthlth_ci_lower, ", ", menthlth_ci_upper, "]\n")
+
+```
+
+```{r}
+#tableshell
+library(kableExtra)
+results = 'asis'
+results <- data.frame(
+  Quantile = c(0.05, 0.25, 0.50, 0.75, 0.95),
+  MENTHLTH_Coefficient = c(-0.214, 0.000, 0.174, 0.263, 1.000),  # Empty placeholder
+  CI_Lower = c(-0.483, -0.260, -0.158, -0.192, -0.038),               # Lower bound of CI
+  CI_Upper = c(0.055, 0.260, 0.506, 0.718, 2.038),               # Upper bound of CI
+  p_Value = c(0.118, 1.000, 0.605, 0.257, 0.059)             # Empty placeholder
+)
+
+
+colnames(results) <- c("Quantile ($\\tau$)", "Mental Health Days Coefficient", "95% Lower CI", "95% Upper CI", "p-Value")
+
+results %>%
+  kable("html", caption = "Quantile Regression Results", digits = 3) %>%
+  kable_styling("striped", full_width = F) %>%
+  column_spec(1, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Weight as a Function of Number of Poor Mental Health Days per Month (n=1319)" = 4)) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "gray")
+
+
+```
+
+# Discussion (DRAFT DRAFT DRAFT)
+
+# Conclusion (DRAFT DRAFT DRAFT)
+
+# References
+
+Buhai, S. (2005). Quantile regression: overview and selected applications. *Ad Astra*, *4*(4), 1-17.
+
+Posit Software, PBC. (2024). RStudio desktop. Retrieved October 13, 2024 from <https://posit.co/download/rstudio-desktop/>
+
+Centers for Disease Control and Prevention (CDC). (2024). 2023 BRFSS Survey Data and Documentation.  Retrieved October 12, 2024 from https://www.cdc.gov/brfss/annual_data/annual_2023.html
+
+Cohen, O., Bolotin, A., Lahad, M., Goldberg, A., & Aharonson-Daniel, L. (2016). Increasing sensitivity of results by using quantile regression analysis for exploring community resilience. *Ecological Indicators, 66*, 497-502.
+
+Koenker, R. (2005). *Quantile regression*. Cambridge University Press.
+
+Koenker, R. (2005). Quantile regression: Theory and applications. *Journal of Economic Perspectives, 19*(4), 143-156. https://doi.org/10.1257/089533005775196243
+
+Koenker, R. & Hallock, K. (2001). Quantile regression. *Journal of Economic Perspectives, 15*(4), 143-56. 
+
+Koenker, R. & Machado, J.A. (1999). Goodness of fit and related inference processes for quantile regression. *Journal of the American Statistical Association, 94*(48). 1296-310.   
+
+Machado, J.A. & Santos Silva, J.M.C. (2005). Quantiles for counts. *Journal of the American Statistical Association, 400*(472), 1226-37. [doi: 10.1198/016214505000000330](https://doi.org/10.1198/016214505000000330){.uri}
+
+Olsen, M.A., Tian, F., Wallace, A.E., Nickel, K.B., Warren, D.K., Fraser, V.J., … & Hamilton, B.H. (2017). Use of quantile regression to determine the impact on total health care costs of surgical site infections following common ambulatory procedures.  *Annals of Surgery, 265*(2), 331-9. doi:10.1097/SLA.0000000000001590
+
+Posit Software, PBC. (2024). RStudio desktop. Retrieved October 13, 2024 from <https://posit.co/download/rstudio-desktop/>
+
+Staffa, S.J., Kohane, D.S., & Zurakowski, D. (2019). Quantile regression and its applications: A primer for anesthesiologists. *Anesthesia & Analgesia, 128*(4), 820-30. doi: 10.1213/ANE.0000000000004017
+
+Waldmann, E. (2018). Quantile regression: A short story on how and why. *Statistical Modelling, 18*(3-4), 203-18.

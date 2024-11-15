@@ -1,0 +1,307 @@
+---
+execute:
+  echo: false
+  warning: false
+  message: false
+  error: false
+format: 
+  revealjs:
+    theme: ["pp.scss"]
+    embed-resources: true
+    slide-number: false
+    width: 1200
+    height: 900
+    df-print: paged
+    html-math-method: katex
+    self-contained: true
+editor: source
+pdf-separate-fragments: true
+fig-align: center
+css: |
+  /* Apply font size to all tables within the document */
+  .reveal table {
+    font-size: 14px;  /* Adjust the font size */
+  }
+
+  /* Ensure that table headers and cells also use the new font size */
+  .reveal table th, .reveal table td {
+    font-size: 14px;  /* Apply the same font size to headers and data cells */
+    padding: 5px;     /* Optional: Adjust padding for readability */
+  }
+---
+
+
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(classpackage)
+library(tinytex)
+library(ggpubr)
+library(foreign)      
+library(haven)       
+library(glue)         
+library(stargazer)
+library(quantreg)
+library(kableExtra)
+```
+
+## Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Screening Survey Data.
+
+Authors: Hamilton Hewlett & Laura Sikes, MPH, CPH <br>
+Group: Not Sure <br>
+Instructor: Dr. Samantha Seals <br>
+Date: November 19, 2024
+
+## Introduction: Regression Overview
+
+- Regression is a method used to predict outcomes based on the behavior of variables within a dataset relative to a mean.
+- Of an infinite number of lines that can be drawn through the data, the one best describing an overall relationship is the one with the smallest sum of the square of the errors.
+- The errors measure the distance from each data point to the line, then each value is squared, and those squares are summed.  
+- The distances are squared in order to eliminate the negative properties of the distances that are found between the line and the data points below it.  
+- The line of best fit is one that produces the smallest sum of these squares.  
+- The formula for the regression line is
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+
+## Introduction: Regression Overview
+In the regssion line equation
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+The slope $\beta_1$ is
+$$
+\beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
+$$ 
+
+
+The intercept $\beta_0$ is
+
+$$
+\beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
+$$
+Based on the above, predictions can be made about what would happen along the regression line where there are no data points.
+
+## Introduction: Quantile Regression 
+
+- Quantile regression (QR) is a  statistical approach that divides a distribution into different sections and finds the median point inside each one.  
+- This approach is especially useful when a distribution contains exceedingly high or low values, given that medians are not as influenced by extreme values as compared to means.  
+- QR is often an excellent solution when only one upper or lower end of a distribution contains a key variable.  
+- Variables may enjoy unique relationships within different sections of a distribution (Buhai, 2005). 
+- The equation for QR is
+
+$$
+Q_Y(\tau \mid X) = X \beta(\tau)
+$$
+
+- Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient (Koenker, 2005).
+
+## Introduction: Quantile Regression 
+
+- QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution (Cohen et al., 2016). 
+- Koenker and Machado (1999) identified the absence of a suitable goodness-of-fit assessment for this statistical method.  
+- The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean.  
+- This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.
+
+## Introduction: Quantile Regression, Goodness of Fit
+
+The formula for *R^2^* is as follows:
+
+$$
+R^2 = 1 - \frac{\sum \left(y_i - \hat{y}\right)^2}{\sum \left(y_i - \bar{y}\right)^2}
+$$
+- The sum of observed values $y_i$  is subtracted by the sum of fitted values $\hat{y}$ and squared, forming the numerator.  <br>
+- The sum of observed values $y_i$ minus the sum of sample mean $\bar{y}$ and then squared, forming the denominator. <br>
+- This formula may also be represented as
+$$
+R^2 = 1 - \frac{RSS}{TSS}
+$$
+  where RSS is the residual sum of squares and TSS is the total sum of squares.<br>
+- The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  <br>
+- The theory behind these methods is beyond the scope of this paper.
+
+## Methodology: Study Design and Data
+
+-   Cross-sectional study using 2023 Behavioral Risk Factor Surveillance System (BRFSS) published by Centers for Disease Control and Prevention (CDC).
+-   BRFSS is a yearly survey conducted via land-line and cellular telephone (CDC, 2024).
+-   Includes U.S. residents aged 18 years and older.
+-   Survey topics include demographic information, socioeconomic factors, physical and mental health status, chronic conditions, and behaviors affecting physical and mental health.
+
+## Methodology: Predictor Variables - Hewlett Project  
+
+## Methodology: Response Variable - Hewlett Project 
+
+## Methodology: Analytical Methods - Hewlett Project  
+
+## Methodology: Response Variable - Sikes Project 
+
+-   Days per month a respondent’s poor health affected his or her activities of daily living (ADL)
+-   Respondents asked to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs.
+-   Available responses were numeric values 1 – 30, none, refused, or don’t know/<a href="https://github.com/les14uwf/notsure/blob/main/NOTSURE.png?raw=true">not sure</a>.
+-   The authors note that quantile regression is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution.
+
+## Methodology: Predictor Variables - Sikes Project  
+
+-   Weight: Available responses including numeric values 50 – 776 in pounds, don’t know/not sure, refused, and a separate indicator for weight measured in kilograms.
+-   Education: Available responses included never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused.
+-   Income in U.S. dollars: Available responses included \<10,000, \$10,000 to \< \$15,000, \$15,000 to \< \$20,000, \$20,000 to \< \$25,000, \$25,000 to \< \$35,000, \$35,000 to \< \$50,000, \$50,000 to \< \$75,000, \$75,000 to \< \$100,000, \$100,000 to \< \$150,000, \$150,000 to \< \$200,000, \$200,000 or more, don’t know/not sure, and refused.
+-   Physical health: Number of days during the previous 30 days in which the respondant's physical or mental health were not good, with available responses including numeric values 1 - 30, refused, or don't know / not sure.
+-   Sex: Available responses were limited to male or female.
+
+## Methodology: Operationalization of Variables - Sikes Project  
+
+-   Dataset filtered to include only residents of the state of Florida and removed of values containing “Refused,” “Not sure / Don’t know”, or missing.
+-   Response variable ADL was filtered to include only numeric responses, and recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
+-   Education was recoded as follows: “Less than High School,”, “High School or GED,” “Some College”, and “4 Years of College or Higher.
+-   Income was recoded into six groups as follows: “\<\$25,000”, “\$25,000-\$34,999”, “\$35,000-\$49,000”, “\$50,000-\$74,999”, “\$75,000-\$99,999”, and “\>\$100,000”.
+-   Physical health and mental health were each recoded into four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
+-   All statistical analyses were performed using RStudio version 2024.04.2, build 764, “Chocolate Cosmos” release for Windows (Posit Software, PBC, 2024).
+
+## Methodology: Analytical Methods - Sikes Project  
+
+-   QR was performed to explore ADL as a function of weight.
+-   The distribution was divided into quartiles (= 0.25, 0.5, 0.75) to find the median values within each.
+-   Ordinary least squares regression (OLS) was performed using the same variables.
+
+## Results: Descriptive Statistics - Sikes Project  
+
+-   Majority (42.6%) of considered respondents reported between 1 to 7 days of poor mental or physical health negatively impacting ADL, followed by \>21 days at 26.3% (Table 1a - 1c).
+-   Nearly one-third (31.9%) reported having greater than 21 days of poor physical health per month, while a similar portion (30.2%) reported having over 21 days of poor physical health.
+-   Over one-half (50.2%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.
+-   Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58).
+-   This sample is heavily skewed female with only 39.1% (n=493) identifying as male.
+
+## Results: Descripive Statistics - Sikes Project
+Table 1a.
+
+| Category                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
+| **Self-Assessed General Health**        |          |      |
+|    Excellent                            |       42 |  3.3 |
+|    Very Good                            |      205 | 16.3 |
+|    Good                                 |      383 | 30.4 |
+|    Fair                                 |      424 | 33.6 |
+|    Poor                                 |      265 | 21.0 |
+|                                         |          |      |
+| **Poor Physical Health Days / Mo.**     |          |      |
+|    1-7                                  |      537 | 42.6 |
+|    8-14                                 |      168 | 13.3 |
+|    15-21                                |      212 | 16.8 |
+|    >21                                  |      402 | 31.9 |
+|                                         |          |      |
+| **Poor Mental Health Days / Mo.**         |          |      |
+|    1-7                                  |      481 | 38.1 |
+|    8-14                                 |      210 | 16.7 |
+|    15-21                                |      247 | 19.6 |
+|    >21                                  |      381 | 30.2 |
+|                                         |          |      |
+
+## Results: Descripive Statistics - Sikes Project
+Table 1b.
+
+| Category                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
+| **Poor Mental Health Days / Mo.**         |          |      |
+|    1-7                                  |      481 | 38.1 |
+|    8-14                                 |      210 | 16.7 |
+|    15-21                                |      247 | 19.6 |
+|    >21                                  |      381 | 30.2 |
+|                                         |          |      |
+| **Poor Health Days Affected ADL / Mo.** |          |      |
+|    1-7                                  |      549 | 43.5 |
+|    8-14                                 |      191 | 15.1 |
+|    15-21                                |      247 | 19.6 |
+|    \>21                                 |      332 | 26.3 |
+|                                         |          |      |
+
+
+## Results: Descripive Statistics - Sikes Project
+Table 1c.
+
+| Category                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
+| **Education**                           |          |      |
+|    Less than High School                |      104 |  8.2 |
+|    High School or GED                   |      345 | 27.4 |
+|    Some College                         |      450 | 35.7 |
+|    4 Years College or More              |      420 | 33.3 |
+
+
+## Results: Descripive Statistics - Sikes Project
+Table 1d.
+
+| Category                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
+| **Annual Income**                       |          |      |
+|    ≤ \$24,999                           |      413 | 32.8 |
+|    \$25,000 - \$34,999                  |      220 | 17.4 |
+|    \$35,000 - \$49,999                  |      183 | 14.5 |
+|    \$50,000 - \$74,999                  |      192 | 15.2 |
+|    \$75,000 - \$99,999                  |      146 | 11.6 |
+|    ≥\$100,000                           |      165 | 13.1 |
+|                                         |          |      |
+| **Sex**                                 |          |      |
+|    Male                                 |      493 | 39.1 |
+|    Female                               |      826 | 65.5 |
+
+## Results: Quantile Regression - Sikes Project 
+Table 2.
+
+| Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | p-Value |
+|----------|---------------------------|--------------|--------------|---------|
+| 0.25     | 0.005                     | -0.002       | 0.012        | 0.158   |
+| 0.50     | 0.000                     | -0.013       | 0.013        | 1.000   |
+| 0.75     | 0.032                     | -0.004       | 0.068        | 0.078   |
+Note. $\alpha$ = 0.05
+
+## Results: Quantile Regression - Sikes Project
+Figure 1.
+
+Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of Weight (lbs)
+![Graph](https://les14uwf.github.io/notsure/qrplot.png)
+
+## Results: Hewlett Project
+
+
+
+## Discussion
+
+- QR produced outputs describing the relationships between our predictor variables and our response variables at different segments of the distribution.  
+- 
+
+## Discussion: Sikes Project
+Table 2.
+
+| Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | <i>p</i>-Value |
+|----------|---------------------------|--------------|--------------|---------|
+| 0.25     | 0.005                     | -0.002       | 0.012        | 0.158   |
+| 0.50     | 0.000                     | -0.013       | 0.013        | 1.000   |
+| 0.75     | 0.032                     | -0.004       | 0.068        | 0.078   |
+
+- At the first quartile (tau = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.95 level (<i>p</i>=0.158).  This finding is not statistically significant.
+- At the second quartile (tau = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health is not detected at the $\alpha$ = 0.95 level (<i>p</i>=1.000).  This finding is not statistically significant.
+- At the third quartile (tau = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078).  This finding is not statistically significant.
+
+## Discussion: Sikes Project
+
+- Since the third quartile (tau = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  
+- Weight (lbs) may have a larger effect at the higher extreme of the distribution not examined in this study.
+- Future studies could examine the effect at the ninetieth (tau = 0.90) and ninety-fifth (tau = 0.95) percentiles. 
+
+## Conclusion
+
+- QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution.  
+- point 
+- point 
+- point
+
+## References
+
+WILL BE COMBINED AND UPDATED 
+
+Centers for Disease Control and Prevention (CDC). (2024). 2023 BRFSS Survey Data and Documentation. Retrieved October 12, 2024 from https://www.cdc.gov/brfss/annual_data/annual_2023.html
+
+Posit Software, PBC. (2024). RStudio desktop. Retrieved October 13, 2024 from https://posit.co/download/rstudio-desktop/

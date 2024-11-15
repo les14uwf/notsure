@@ -1,0 +1,433 @@
+---
+title: "Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Surveillance Survey"
+author: "Laura E. Sikes, MPH, CPH"
+format: html
+self-contained: true
+editor: visual
+knitr:
+  opts_chunk: 
+    echo: false
+    warning: false
+    message: false
+    results: "asis"
+---
+
+
+```{r}
+
+#install.packages("dplyr")    # alternative installation of the %>%
+#library(devtools)
+#install_github("ieb2/classpackage", force = TRUE)
+#library(classpackage)#install.packages("glmtoolbox")
+#install.packages("devtools")
+
+library(dplyr)       
+library(tidyverse)  
+library(classpackage) 
+library(foreign)      
+library(haven)       
+library(glue)         
+library(tinytex)      
+library(ggpubr)       
+library(stargazer)
+library(quantreg)
+library(kableExtra)
+
+```
+
+
+```{r}
+#CALLING IN DATA
+brfss<-read_xpt("LLCP2022.XPT") 
+```
+
+```{r}
+#FILTERING FOR FL, SELECTING VARIABLES
+brfss <- brfss %>%
+  rename(state= '_STATE')
+
+brfssfl <-brfss %>%
+filter(state == 12) %>% 
+  select(GENHLTH, PHYSHLTH, MENTHLTH, POORHLTH, EDUCA, INCOME3, WEIGHT2, SEXVAR)%>%
+  na.omit()
+
+```
+
+```{r}
+#OPERATIONALIZATION OF VARIABLES
+brfssfl <- brfssfl %>%
+  filter(GENHLTH < 7)
+
+brfssfl <- brfssfl %>%
+  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
+                         (GENHLTH == 2) ~ 'Very Good',
+                         (GENHLTH == 3) ~ 'Good',
+                         (GENHLTH == 4) ~ 'Fair',
+                         (GENHLTH == 5) ~ 'Poor',
+                         (GENHLTH == 7) ~ 'Not Sure',
+                         (GENHLTH == 9) ~ 'Refused',))
+
+brfssfl <- brfssfl %>%
+  filter(WEIGHT2 < 800)
+
+brfssfl <- brfssfl %>%
+  filter(PHYSHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(phy = case_when(
+    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
+    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
+    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
+    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
+    PHYSHLTH == 77 ~ 'Not Sure',
+    PHYSHLTH == 88 ~ 'None',
+    PHYSHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(MENTHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(men = case_when(
+    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
+    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
+    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
+    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
+    MENTHLTH == 77 ~ 'Not Sure',
+    MENTHLTH == 88 ~ 'None',
+    MENTHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(POORHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(poor = case_when(
+    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
+    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
+    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
+    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
+    POORHLTH == 77 ~ 'Not Sure',
+    POORHLTH == 88 ~ 'None',
+    POORHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(EDUCA < 9)
+
+brfssfl <- brfssfl %>%
+  mutate(edu = case_when(
+    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
+    EDUCA == 4 ~ 'High School or GED',
+    EDUCA == 5 ~ 'Some College',
+    EDUCA == 6 ~ '4 Years of College or Higher',
+    EDUCA == 9 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  mutate(sex = case_when(
+    SEXVAR == 1 ~ 'Male',
+    SEXVAR == 2 ~ 'Female',
+
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(INCOME3 < 12)
+
+brfssfl <- brfssfl %>%
+  mutate(inc = case_when(
+    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
+    INCOME3 == 5 ~ '$25,000-$34,999',
+    INCOME3 == 6 ~ '$35,000-$49,999',
+    INCOME3 == 7 ~ '$50,000-$74,999',
+    INCOME3 == 8 ~ '$75,000-$99,999',
+    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
+    INCOME3 == 77 ~ 'Not Sure',
+    INCOME3 == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(GENHLTH < 7)
+
+brfssfl <- brfssfl %>%
+  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
+                         (GENHLTH == 2) ~ 'Very Good',
+                         (GENHLTH == 3) ~ 'Good',
+                         (GENHLTH == 4) ~ 'Fair',
+                         (GENHLTH == 5) ~ 'Poor',
+                         (GENHLTH == 7) ~ 'Not Sure',
+                         (GENHLTH == 9) ~ 'Refused',))
+
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(WEIGHT2 < 800)
+
+
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(PHYSHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(phy = case_when(
+    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
+    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
+    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
+    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
+    PHYSHLTH == 77 ~ 'Not Sure',
+    PHYSHLTH == 88 ~ 'None',
+    PHYSHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(MENTHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(men = case_when(
+    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
+    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
+    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
+    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
+    MENTHLTH == 77 ~ 'Not Sure',
+    MENTHLTH == 88 ~ 'None',
+    MENTHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(POORHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(poor = case_when(
+    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
+    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
+    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
+    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
+    POORHLTH == 77 ~ 'Not Sure',
+    POORHLTH == 88 ~ 'None',
+    POORHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(EDUCA < 9)
+
+brfssfl <- brfssfl %>%
+  mutate(edu = case_when(
+    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
+    EDUCA == 4 ~ 'High School or GED',
+    EDUCA == 5 ~ 'Some College',
+    EDUCA == 6 ~ '4 Years of College or Higher',
+    EDUCA == 9 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  mutate(sex = case_when(
+    SEXVAR == 1 ~ 'Male',
+    SEXVAR == 2 ~ 'Female',
+
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(INCOME3 < 12)
+
+brfssfl <- brfssfl %>%
+  mutate(inc = case_when(
+    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
+    INCOME3 == 5 ~ '$25,000-$34,999',
+    INCOME3 == 6 ~ '$35,000-$49,999',
+    INCOME3 == 7 ~ '$50,000-$74,999',
+    INCOME3 == 8 ~ '$75,000-$99,999',
+    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
+    INCOME3 == 77 ~ 'Not Sure',
+    INCOME3 == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+```
+
+
+```{r}
+#QUANTILE REGRESSION
+
+library(quantreg)
+library(stargazer)
+results = 'hide'
+stargazer(brfssfl, type="text")
+
+qr_25 = rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
+qr_50 = rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
+qr_75 = rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
+
+
+
+summary(qr_25)
+summary(qr_50)
+summary(qr_75)
+
+```
+
+```{r}
+# 95% CIs
+
+
+################ 25
+
+qr_25 <- rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
+
+summary_qr_25 <- summary(qr_25)
+
+coefficients <- summary_qr_25$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+poorhlth_estimate <- coefficients[2, 1]
+poorhlth_se <- coefficients[2, 2]
+poorhlth_ci_lower <- poorhlth_estimate - z_score * poorhlth_se
+poorhlth_ci_upper <- poorhlth_estimate + z_score * poorhlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("POORHLTH CI (95%): [", poorhlth_ci_lower, ", ", poorhlth_ci_upper, "]\n")
+
+
+################# 50
+
+
+qr_50 <- rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
+
+summary_qr_50 <- summary(qr_50)
+
+coefficients <- summary_qr_50$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+poorhlth_estimate <- coefficients[2, 1]
+poorhlth_se <- coefficients[2, 2]
+poorhlth_ci_lower <- poorhlth_estimate - z_score * poorhlth_se
+poorhlth_ci_upper <- poorhlth_estimate + z_score * poorhlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("POORHLTH CI (95%): [", poorhlth_ci_lower, ", ", poorhlth_ci_upper, "]\n")
+
+
+################# 75
+
+
+qr_75 <- rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
+
+summary_qr_75 <- summary(qr_75)
+
+coefficients <- summary_qr_75$coefficients
+
+z_score <- 1.96
+
+intercept_estimate <- coefficients[1, 1]
+intercept_se <- coefficients[1, 2]
+intercept_ci_lower <- intercept_estimate - z_score * intercept_se
+intercept_ci_upper <- intercept_estimate + z_score * intercept_se
+
+poorhlth_estimate <- coefficients[2, 1]
+poorhlth_se <- coefficients[2, 2]
+poorhlth_ci_lower <- poorhlth_estimate - z_score * poorhlth_se
+poorhlth_ci_upper <- poorhlth_estimate + z_score * poorhlth_se
+
+cat("Intercept CI (95%): [", intercept_ci_lower, ", ", intercept_ci_upper, "]\n")
+cat("POORHLTH CI (95%): [", poorhlth_ci_lower, ", ", poorhlth_ci_upper, "]\n")
+
+```
+
+Table 2.
+
+| Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | p-Value |
+|----------|---------------------------|--------------|--------------|---------|
+| 0.25     | 0.005                     | -0.002       | 0.012        | 0.158   |
+| 0.50     | 0.000                     | -0.013       | 0.013        | 1.000   |
+| 0.75     | 0.032                     | -0.004       | 0.068        | 0.078   |
+Note. $\alpha$ = 0.05
+
+
+```{r}
+# QR PLOT
+
+qr_25 = rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
+qr_50 = rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
+qr_75 = rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
+
+ggplot(brfssfl, aes(x = WEIGHT2, y = POORHLTH)) +
+  geom_point(alpha = 0.5) +  
+#OLS LINE HERE
+  geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) + 
+#QR LINES HERE
+  geom_abline(slope = coef(qr_25)[2], intercept = coef(qr_25)[1], color = "yellow", linetype = "solid") +  
+  geom_abline(slope = coef(qr_50)[2], intercept = coef(qr_50)[1], color = "lightgreen", linetype = "solid") +  
+  geom_abline(slope = coef(qr_75)[2], intercept = coef(qr_75)[1], color = "lightblue", linetype = "solid") +  
+  labs(title = "Quantile Regression: Days per Month ADLs Affected by Weight",
+       x = "Weight (lbs)",
+       y = "Days per Month") +
+  theme_minimal() +  # Clean theme
+  theme(legend.position = "right") +  # Position legend on the right
+  scale_color_manual(values = c("OLS Line" = "black", 
+                                "QR 25th Percentile" = "yellow", 
+                                "QR 50th Percentile" = "lightgreen", 
+                                "QR 75th Percentile" = "lightblue"))
+```
+```{r}
+library(ggplot2)
+library(quantreg)
+
+# Fit quantile regression models for the 25th, 50th, and 75th percentiles
+qr_25 = rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
+qr_50 = rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
+qr_75 = rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
+
+# Plot using ggplot2 with a legend
+ggplot(brfssfl, aes(x = WEIGHT2, y = POORHLTH)) +
+  geom_point(alpha = 0.5) +  
+  # Add OLS line (dashed)
+  geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE, aes(color = "OLS Line")) + 
+  # Add quantile regression lines and map to the legend
+  geom_abline(slope = coef(qr_25)[2], intercept = coef(qr_25)[1], color = "yellow", linetype = "solid", 
+              aes(color = "QR 25th Percentile")) +  # 25th percentile
+  geom_abline(slope = coef(qr_50)[2], intercept = coef(qr_50)[1], color = "lightgreen", linetype = "solid", 
+              aes(color = "QR 50th Percentile")) +  # 50th percentile
+  geom_abline(slope = coef(qr_75)[2], intercept = coef(qr_75)[1], color = "lightblue", linetype = "solid", 
+              aes(color = "QR 75th Percentile")) +  # 75th percentile
+  labs(title = "Quantile Regression: Days per Month ADLs Affected by Weight",
+       x = "Weight (lbs)",
+       y = "Days per Month") +
+  theme_minimal() +  
+  theme(legend.position = "top") +  
+  scale_color_manual(values = c("OLS Line" = "black", 
+                                "QR 25th Percentile" = "yellow", 
+                                "QR 50th Percentile" = "lightgreen", 
+                                "QR 75th Percentile" = "lightblue"))  # Manually set colors for the legend
+
+```
+

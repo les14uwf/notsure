@@ -13,6 +13,7 @@ format:
     height: 900
     df-print: paged
     html-math-method: katex
+    self-contained: true
 editor: source
 pdf-separate-fragments: true
 fig-align: center
@@ -37,6 +38,12 @@ library(tidyverse)
 library(classpackage)
 library(tinytex)
 library(ggpubr)
+library(foreign)      
+library(haven)       
+library(glue)         
+library(stargazer)
+library(quantreg)
+library(kableExtra)
 ```
 
 ## Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Screening Survey Data.
@@ -238,21 +245,254 @@ Table 2.
 Note. $\alpha$ = 0.05
 
 ## Results: Descripive Statistics - Sikes Project - REPLACING GRAPH.
-Figure 2.
+Figure 1.
 
-Linear regression: Mental health as a function of weight.
+```{r}
+#FILTERING FOR FL, SELECTING VARIABLES
+brfss <- brfss %>%
+  rename(state= '_STATE')
 
-![](https://raw.githubusercontent.com/les14uwf/notsure/refs/heads/main/lr.PNG)
+brfssfl <-brfss %>%
+filter(state == 12) %>% 
+  select(GENHLTH, PHYSHLTH, MENTHLTH, POORHLTH, EDUCA, INCOME3, WEIGHT2, SEXVAR)%>%
+  na.omit()
 
-## Results: Descripive Statistics - Sikes Project - REPLACING GRAPH. 
-Figure 3.
+```
 
-Linear regression (blue) vs. quantile regression (green, tau=0.5): Mental health as a function of weight.
+```{r}
+#OPERATIONALIZATION OF VARIABLES
+brfssfl <- brfssfl %>%
+  filter(GENHLTH < 7)
 
-![](https://raw.githubusercontent.com/les14uwf/notsure/refs/heads/main/qr-weight.PNG)
+brfssfl <- brfssfl %>%
+  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
+                         (GENHLTH == 2) ~ 'Very Good',
+                         (GENHLTH == 3) ~ 'Good',
+                         (GENHLTH == 4) ~ 'Fair',
+                         (GENHLTH == 5) ~ 'Poor',
+                         (GENHLTH == 7) ~ 'Not Sure',
+                         (GENHLTH == 9) ~ 'Refused',))
 
-## Results: Descripive Statistics - Sikes Project - REPLACING GRAPH.
-Figure 4.
+brfssfl <- brfssfl %>%
+  filter(WEIGHT2 < 800)
+
+brfssfl <- brfssfl %>%
+  filter(PHYSHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(phy = case_when(
+    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
+    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
+    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
+    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
+    PHYSHLTH == 77 ~ 'Not Sure',
+    PHYSHLTH == 88 ~ 'None',
+    PHYSHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(MENTHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(men = case_when(
+    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
+    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
+    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
+    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
+    MENTHLTH == 77 ~ 'Not Sure',
+    MENTHLTH == 88 ~ 'None',
+    MENTHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(POORHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(poor = case_when(
+    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
+    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
+    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
+    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
+    POORHLTH == 77 ~ 'Not Sure',
+    POORHLTH == 88 ~ 'None',
+    POORHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(EDUCA < 9)
+
+brfssfl <- brfssfl %>%
+  mutate(edu = case_when(
+    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
+    EDUCA == 4 ~ 'High School or GED',
+    EDUCA == 5 ~ 'Some College',
+    EDUCA == 6 ~ '4 Years of College or Higher',
+    EDUCA == 9 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  mutate(sex = case_when(
+    SEXVAR == 1 ~ 'Male',
+    SEXVAR == 2 ~ 'Female',
+
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(INCOME3 < 12)
+
+brfssfl <- brfssfl %>%
+  mutate(inc = case_when(
+    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
+    INCOME3 == 5 ~ '$25,000-$34,999',
+    INCOME3 == 6 ~ '$35,000-$49,999',
+    INCOME3 == 7 ~ '$50,000-$74,999',
+    INCOME3 == 8 ~ '$75,000-$99,999',
+    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
+    INCOME3 == 77 ~ 'Not Sure',
+    INCOME3 == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(GENHLTH < 7)
+
+brfssfl <- brfssfl %>%
+  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
+                         (GENHLTH == 2) ~ 'Very Good',
+                         (GENHLTH == 3) ~ 'Good',
+                         (GENHLTH == 4) ~ 'Fair',
+                         (GENHLTH == 5) ~ 'Poor',
+                         (GENHLTH == 7) ~ 'Not Sure',
+                         (GENHLTH == 9) ~ 'Refused',))
+
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(WEIGHT2 < 800)
+
+
+
+```
+
+```{r}
+brfssfl <- brfssfl %>%
+  filter(PHYSHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(phy = case_when(
+    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
+    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
+    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
+    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
+    PHYSHLTH == 77 ~ 'Not Sure',
+    PHYSHLTH == 88 ~ 'None',
+    PHYSHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(MENTHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(men = case_when(
+    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
+    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
+    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
+    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
+    MENTHLTH == 77 ~ 'Not Sure',
+    MENTHLTH == 88 ~ 'None',
+    MENTHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(POORHLTH < 31)
+
+brfssfl <- brfssfl %>%
+  mutate(poor = case_when(
+    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
+    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
+    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
+    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
+    POORHLTH == 77 ~ 'Not Sure',
+    POORHLTH == 88 ~ 'None',
+    POORHLTH == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(EDUCA < 9)
+
+brfssfl <- brfssfl %>%
+  mutate(edu = case_when(
+    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
+    EDUCA == 4 ~ 'High School or GED',
+    EDUCA == 5 ~ 'Some College',
+    EDUCA == 6 ~ '4 Years of College or Higher',
+    EDUCA == 9 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  mutate(sex = case_when(
+    SEXVAR == 1 ~ 'Male',
+    SEXVAR == 2 ~ 'Female',
+
+    TRUE ~ NA_character_
+  ))
+
+brfssfl <- brfssfl %>%
+  filter(INCOME3 < 12)
+
+brfssfl <- brfssfl %>%
+  mutate(inc = case_when(
+    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
+    INCOME3 == 5 ~ '$25,000-$34,999',
+    INCOME3 == 6 ~ '$35,000-$49,999',
+    INCOME3 == 7 ~ '$50,000-$74,999',
+    INCOME3 == 8 ~ '$75,000-$99,999',
+    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
+    INCOME3 == 77 ~ 'Not Sure',
+    INCOME3 == 99 ~ 'Refused',
+    TRUE ~ NA_character_
+  ))
+
+```
+
+```{r}
+
+# QR PLOT
+
+qr_25 = rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
+qr_50 = rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
+qr_75 = rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
+
+ggplot(brfssfl, aes(x = WEIGHT2, y = POORHLTH)) +
+  geom_point(alpha = 0.5) +  
+#OLS LINE HERE
+  geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) + 
+#QR LINES HERE
+  geom_abline(slope = coef(qr_25)[2], intercept = coef(qr_25)[1], color = "yellow", linetype = "solid") +  
+  geom_abline(slope = coef(qr_50)[2], intercept = coef(qr_50)[1], color = "lightgreen", linetype = "solid") +  
+  geom_abline(slope = coef(qr_75)[2], intercept = coef(qr_75)[1], color = "lightblue", linetype = "solid") +  
+  labs(title = "Quantile Regression: Days per Month ADLs Affected by Weight",
+       x = "Weight (lbs)",
+       y = "Days per Month)") +
+  theme_minimal() +  # Clean theme
+  theme(legend.position = "none")  # Remove legend if not needed
+
+```
+
 
 Linear regression (blue) vs. quantile regression (black: tau=0.25; green: tau=0.5; yellow: tau=0.75): Mental health as a function of weight.
 
@@ -292,6 +532,8 @@ Table 2.
 - point
 
 ## References
+
+WILL BE COMBINED AND UPDATED 
 
 Centers for Disease Control and Prevention (CDC). (2024). 2023 BRFSS Survey Data and Documentation. Retrieved October 12, 2024 from https://www.cdc.gov/brfss/annual_data/annual_2023.html
 
