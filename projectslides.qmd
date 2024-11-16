@@ -12,23 +12,27 @@ format:
     width: 1200
     height: 900
     df-print: paged
-    html-math-method: katex
+    html-math-method: mathjax
     self-contained: true
 editor: source
 pdf-separate-fragments: true
 fig-align: center
 css: |
-  /* Apply font size to all tables within the document */
-  .reveal table {
-    font-size: 14px;  /* Adjust the font size */
-  }
 
   /* Ensure that table headers and cells also use the new font size */
   .reveal table th, .reveal table td {
     font-size: 14px;  /* Apply the same font size to headers and data cells */
     padding: 5px;     /* Optional: Adjust padding for readability */
   }
+
+  /* Global left-align for all tables */
+  .reveal table {
+    text-align: left;
+    margin-left: 0;
+  }
+
 ---
+
 
 
 
@@ -46,7 +50,7 @@ library(quantreg)
 library(kableExtra)
 ```
 
-## Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Screening Survey Data.
+## Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Screening Survey Data
 
 Authors: Hamilton Hewlett & Laura Sikes, MPH, CPH <br>
 Group: Not Sure <br>
@@ -68,21 +72,18 @@ $$
 
 ## Introduction: Regression Overview
 In the regssion line equation
-
 $$
 \hat{y} = \beta_0 + \beta_1 x
 $$
-The slope $\beta_1$ is
+where the intercept $\beta_0$ is
+$$
+\beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
+$$
+and where the slope $\beta_1$ is
 $$
 \beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
 $$ 
 
-
-The intercept $\beta_0$ is
-
-$$
-\beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
-$$
 Based on the above, predictions can be made about what would happen along the regression line where there are no data points.
 
 ## Introduction: Quantile Regression 
@@ -122,6 +123,32 @@ $$
   where RSS is the residual sum of squares and TSS is the total sum of squares.<br>
 - The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  <br>
 - The theory behind these methods is beyond the scope of this paper.
+
+## Introduction: Quantile Regression Applications
+
+- Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.
+- Olsen et al. (2017), employed QR in a retrospective cohort study using data from insurer claims to identify factors affecting costs of infections following inpatient surgical procedures.
+- Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
+- QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
+
+## Introduction: Quantile Regression Applications
+- Waldmann (2018) utilized body mass index (BMI) data to illustrate the usefulness of QR.
+- The author’s goal was to answer questions about the outer portions of the distribution, which in this case was boys with the highest BMI.
+- QR afforded the author insight into how predictor variables can have stronger or weaker effects within different areas of the distribution. 
+<p>
+- Cohen et al. (2016) used QR to evaluate the relationships between community demographics and perceived resilience.  
+- The authors divided the distribution into percentiles and quartiles, and found that significant relationships existed inside several quantiles that were not significant when using linear regression on the entire distribution. 
+
+## Introduction: Quantile Regression Applications
+
+- Staffa et al. (2019) employed QR to understand relationships between ventilator dependence and hospital length of stay, suspecting that these relationships changed across different quantiles.
+-The authors found stronger relationships between the predictor variables inside the upper quantiles of the length of stay outcome. 
+<p>
+- Machado and Silva (2005) explored the use of QR for count data by incorporating artificial smoothness, allowing inferences to be made about the conditional quartiles.  The authors note that count data is often severely skewed, making it an excellent candidate for QR which is more resilient against skewness given its use of medians over means.
+
+## Introduction: Quantile Regression Applications
+
+
 
 ## Methodology: Study Design and Data
 
@@ -163,7 +190,7 @@ $$
 ## Methodology: Analytical Methods - Sikes Project  
 
 -   QR was performed to explore ADL as a function of weight.
--   The distribution was divided into quartiles (= 0.25, 0.5, 0.75) to find the median values within each.
+-   The distribution was divided into quartiles ($\tau$ = 0.25, 0.5, 0.75) to find the median values within each.
 -   Ordinary least squares regression (OLS) was performed using the same variables.
 
 ## Results: Descriptive Statistics - Sikes Project  
@@ -191,25 +218,31 @@ Table 1a.
 |    8-14                                 |      168 | 13.3 |
 |    15-21                                |      212 | 16.8 |
 |    >21                                  |      402 | 31.9 |
-|                                         |          |      |
-| **Poor Mental Health Days / Mo.**         |          |      |
-|    1-7                                  |      481 | 38.1 |
-|    8-14                                 |      210 | 16.7 |
-|    15-21                                |      247 | 19.6 |
-|    >21                                  |      381 | 30.2 |
-|                                         |          |      |
+
 
 ## Results: Descripive Statistics - Sikes Project
 Table 1b.
 
 | Category                                | n = 1319 |   \% |
 |-----------------------------------------|---------:|-----:|
+| **Poor Mental Health Days / Mo.**         |          |      |
+|    1-7                                  |      481 | 38.1 |
+|    8-14                                 |      210 | 16.7 |
+|    15-21                                |      247 | 19.6 |
+|    >21                                  |      381 | 30.2 |
+|                                         |          |      |
 | **Poor Health Days Affected ADL / Mo.** |          |      |
 |    1-7                                  |      549 | 43.5 |
 |    8-14                                 |      191 | 15.1 |
 |    15-21                                |      247 | 19.6 |
 |    \>21                                 |      332 | 26.3 |
-|                                         |          |      |
+
+
+## Results: Descripive Statistics - Sikes Project
+Table 1c.
+
+| Category                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
 | **Education**                           |          |      |
 |    Less than High School                |      104 |  8.2 |
 |    High School or GED                   |      345 | 27.4 |
@@ -218,7 +251,7 @@ Table 1b.
 
 
 ## Results: Descripive Statistics - Sikes Project
-Table 1c.
+Table 1d.
 
 | Category                                | n = 1319 |   \% |
 |-----------------------------------------|---------:|-----:|
@@ -244,257 +277,11 @@ Table 2.
 | 0.75     | 0.032                     | -0.004       | 0.068        | 0.078   |
 Note. $\alpha$ = 0.05
 
-## Results: Descripive Statistics - Sikes Project - REPLACING GRAPH.
+## Results: Quantile Regression - Sikes Project
 Figure 1.
 
-```{r}
-#FILTERING FOR FL, SELECTING VARIABLES
-brfss <- brfss %>%
-  rename(state= '_STATE')
-
-brfssfl <-brfss %>%
-filter(state == 12) %>% 
-  select(GENHLTH, PHYSHLTH, MENTHLTH, POORHLTH, EDUCA, INCOME3, WEIGHT2, SEXVAR)%>%
-  na.omit()
-
-```
-
-```{r}
-#OPERATIONALIZATION OF VARIABLES
-brfssfl <- brfssfl %>%
-  filter(GENHLTH < 7)
-
-brfssfl <- brfssfl %>%
-  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
-                         (GENHLTH == 2) ~ 'Very Good',
-                         (GENHLTH == 3) ~ 'Good',
-                         (GENHLTH == 4) ~ 'Fair',
-                         (GENHLTH == 5) ~ 'Poor',
-                         (GENHLTH == 7) ~ 'Not Sure',
-                         (GENHLTH == 9) ~ 'Refused',))
-
-brfssfl <- brfssfl %>%
-  filter(WEIGHT2 < 800)
-
-brfssfl <- brfssfl %>%
-  filter(PHYSHLTH < 31)
-
-brfssfl <- brfssfl %>%
-  mutate(phy = case_when(
-    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
-    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
-    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
-    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
-    PHYSHLTH == 77 ~ 'Not Sure',
-    PHYSHLTH == 88 ~ 'None',
-    PHYSHLTH == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(MENTHLTH < 31)
-
-brfssfl <- brfssfl %>%
-  mutate(men = case_when(
-    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
-    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
-    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
-    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
-    MENTHLTH == 77 ~ 'Not Sure',
-    MENTHLTH == 88 ~ 'None',
-    MENTHLTH == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(POORHLTH < 31)
-
-brfssfl <- brfssfl %>%
-  mutate(poor = case_when(
-    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
-    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
-    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
-    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
-    POORHLTH == 77 ~ 'Not Sure',
-    POORHLTH == 88 ~ 'None',
-    POORHLTH == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(EDUCA < 9)
-
-brfssfl <- brfssfl %>%
-  mutate(edu = case_when(
-    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
-    EDUCA == 4 ~ 'High School or GED',
-    EDUCA == 5 ~ 'Some College',
-    EDUCA == 6 ~ '4 Years of College or Higher',
-    EDUCA == 9 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  mutate(sex = case_when(
-    SEXVAR == 1 ~ 'Male',
-    SEXVAR == 2 ~ 'Female',
-
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(INCOME3 < 12)
-
-brfssfl <- brfssfl %>%
-  mutate(inc = case_when(
-    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
-    INCOME3 == 5 ~ '$25,000-$34,999',
-    INCOME3 == 6 ~ '$35,000-$49,999',
-    INCOME3 == 7 ~ '$50,000-$74,999',
-    INCOME3 == 8 ~ '$75,000-$99,999',
-    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
-    INCOME3 == 77 ~ 'Not Sure',
-    INCOME3 == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-```
-
-```{r}
-brfssfl <- brfssfl %>%
-  filter(GENHLTH < 7)
-
-brfssfl <- brfssfl %>%
-  mutate(gen = case_when((GENHLTH == 1) ~ 'Excellent',
-                         (GENHLTH == 2) ~ 'Very Good',
-                         (GENHLTH == 3) ~ 'Good',
-                         (GENHLTH == 4) ~ 'Fair',
-                         (GENHLTH == 5) ~ 'Poor',
-                         (GENHLTH == 7) ~ 'Not Sure',
-                         (GENHLTH == 9) ~ 'Refused',))
-
-
-```
-
-```{r}
-brfssfl <- brfssfl %>%
-  filter(WEIGHT2 < 800)
-
-
-
-```
-
-```{r}
-brfssfl <- brfssfl %>%
-  filter(PHYSHLTH < 31)
-
-brfssfl <- brfssfl %>%
-  mutate(phy = case_when(
-    PHYSHLTH >= 1 & PHYSHLTH <= 7 ~ '1-7',
-    PHYSHLTH >= 8 & PHYSHLTH <= 14 ~ '8-14',
-    PHYSHLTH >= 15 & PHYSHLTH <= 21 ~ '15-21',
-    PHYSHLTH >= 22 & PHYSHLTH <= 30 ~ '>21',
-    PHYSHLTH == 77 ~ 'Not Sure',
-    PHYSHLTH == 88 ~ 'None',
-    PHYSHLTH == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(MENTHLTH < 31)
-
-brfssfl <- brfssfl %>%
-  mutate(men = case_when(
-    MENTHLTH >= 1 & MENTHLTH <= 7 ~ '1-7',
-    MENTHLTH >= 8 & MENTHLTH <= 14 ~ '8-14',
-    MENTHLTH >= 15 & MENTHLTH <= 21 ~ '15-21',
-    MENTHLTH >= 22 & MENTHLTH <= 30 ~ '>21',
-    MENTHLTH == 77 ~ 'Not Sure',
-    MENTHLTH == 88 ~ 'None',
-    MENTHLTH == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(POORHLTH < 31)
-
-brfssfl <- brfssfl %>%
-  mutate(poor = case_when(
-    POORHLTH >= 1 & POORHLTH <= 7 ~ '1-7',
-    POORHLTH >= 8 & POORHLTH <= 14 ~ '8-14',
-    POORHLTH >= 15 & POORHLTH <= 21 ~ '15-21',
-    POORHLTH >= 22 & POORHLTH <= 30 ~ '>21',
-    POORHLTH == 77 ~ 'Not Sure',
-    POORHLTH == 88 ~ 'None',
-    POORHLTH == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(EDUCA < 9)
-
-brfssfl <- brfssfl %>%
-  mutate(edu = case_when(
-    EDUCA >= 1 & EDUCA <= 3 ~ 'Less than High School',
-    EDUCA == 4 ~ 'High School or GED',
-    EDUCA == 5 ~ 'Some College',
-    EDUCA == 6 ~ '4 Years of College or Higher',
-    EDUCA == 9 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  mutate(sex = case_when(
-    SEXVAR == 1 ~ 'Male',
-    SEXVAR == 2 ~ 'Female',
-
-    TRUE ~ NA_character_
-  ))
-
-brfssfl <- brfssfl %>%
-  filter(INCOME3 < 12)
-
-brfssfl <- brfssfl %>%
-  mutate(inc = case_when(
-    INCOME3 >= 1 & INCOME3 <= 4 ~ '<$25,000',
-    INCOME3 == 5 ~ '$25,000-$34,999',
-    INCOME3 == 6 ~ '$35,000-$49,999',
-    INCOME3 == 7 ~ '$50,000-$74,999',
-    INCOME3 == 8 ~ '$75,000-$99,999',
-    INCOME3 >= 9 & INCOME3 <= 11 ~ '>$100,000',
-    INCOME3 == 77 ~ 'Not Sure',
-    INCOME3 == 99 ~ 'Refused',
-    TRUE ~ NA_character_
-  ))
-
-```
-
-```{r}
-
-# QR PLOT
-
-qr_25 = rq(POORHLTH ~ WEIGHT2, tau = 0.25, data = brfssfl)
-qr_50 = rq(POORHLTH ~ WEIGHT2, tau = 0.50, data = brfssfl)
-qr_75 = rq(POORHLTH ~ WEIGHT2, tau = 0.75, data = brfssfl)
-
-ggplot(brfssfl, aes(x = WEIGHT2, y = POORHLTH)) +
-  geom_point(alpha = 0.5) +  
-#OLS LINE HERE
-  geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) + 
-#QR LINES HERE
-  geom_abline(slope = coef(qr_25)[2], intercept = coef(qr_25)[1], color = "yellow", linetype = "solid") +  
-  geom_abline(slope = coef(qr_50)[2], intercept = coef(qr_50)[1], color = "lightgreen", linetype = "solid") +  
-  geom_abline(slope = coef(qr_75)[2], intercept = coef(qr_75)[1], color = "lightblue", linetype = "solid") +  
-  labs(title = "Quantile Regression: Days per Month ADLs Affected by Weight",
-       x = "Weight (lbs)",
-       y = "Days per Month)") +
-  theme_minimal() +  # Clean theme
-  theme(legend.position = "none")  # Remove legend if not needed
-
-```
-
-
-Linear regression (blue) vs. quantile regression (black: tau=0.25; green: tau=0.5; yellow: tau=0.75): Mental health as a function of weight.
+Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of Weight (lbs)
+![Graph](https://les14uwf.github.io/notsure/qrplot.png)
 
 ## Results: Hewlett Project
 
@@ -502,7 +289,7 @@ Linear regression (blue) vs. quantile regression (black: tau=0.25; green: tau=0.
 
 ## Discussion
 
-- QR produced outputs describing the relationships between our predictor variables and our response variables at different segments of the distribution.  
+- QR produced outputs describing the relationships between our predictor variables and our response variables at different segments of the distributions.  
 - 
 
 ## Discussion: Sikes Project
@@ -514,22 +301,25 @@ Table 2.
 | 0.50     | 0.000                     | -0.013       | 0.013        | 1.000   |
 | 0.75     | 0.032                     | -0.004       | 0.068        | 0.078   |
 
-- At the first quartile (tau = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.95 level (<i>p</i>=0.158).  This finding is not statistically significant.
-- At the second quartile (tau = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health is not detected at the $\alpha$ = 0.95 level (<i>p</i>=1.000).  This finding is not statistically significant.
-- At the third quartile (tau = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078).  This finding is not statistically significant.
+- At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.95 level (<i>p</i>=0.158).  This finding is not statistically significant.
+- At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health is not detected at the $\alpha$ = 0.95 level (<i>p</i>=1.000).  This finding is not statistically significant.
+- At the third quartile ($\tau$ = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078).  This finding is not statistically significant.
 
 ## Discussion: Sikes Project
 
-- Since the third quartile (tau = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  
+- Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  
 - Weight (lbs) may have a larger effect at the higher extreme of the distribution not examined in this study.
-- Future studies could examine the effect at the ninetieth (tau = 0.90) and ninety-fifth (tau = 0.95) percentiles. 
+- Future studies could examine the effect at the ninetieth ($\tau$ = 0.90) and ninety-fifth ($\tau$ = 0.95) percentiles. 
 
 ## Conclusion
 
+- QR is well-represented within the literature and has numerous advantages over traditional regression models when relationships between variables are suspected to change across quantiles.
 - QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution.  
 - point 
 - point 
 - point
+- With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our data.
+
 
 ## References
 
