@@ -290,7 +290,11 @@ Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of 
 ## Discussion
 
 - QR produced outputs describing the relationships between our predictor variables and our response variables at different segments of the distributions.  
-- 
+- ...more general discussion here before we get into our individual project discussions 
+- ...more
+
+## Discussion: Hewlett Project
+
 
 ## Discussion: Sikes Project
 Table 2.
