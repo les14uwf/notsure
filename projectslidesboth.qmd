@@ -4,19 +4,20 @@ execute:
   warning: false
   message: false
   error: false
-  results: 'hide' 
-format: 
+  results: 'hide'
+format:
   revealjs:
     theme: ["pp.scss"]
     embed-resources: true
-    slide-number: false
+    slide-number: true
     width: 1200
     height: 900
     df-print: paged
     html-math-method: mathjax
     self-contained: true
+    transition: fade
 editor: source
-markdown: 
+markdown:
     wrap: 72
 csl: https://www.zotero.org/styles/apa
 bibliography: "references.bib"
@@ -25,14 +26,21 @@ fig-align: left
 css: |
   /* Ensure that table headers and cells also use the new font size */
   .reveal table th, .reveal table td {
-  }
     font-size: 14px;  /* Apply the same font size to headers and data cells */
     padding: 5px;     /* Optional: Adjust padding for readability */
+  }
   /* Global left-align for all tables */
   .reveal table {
     text-align: left;
     margin-left: 0;
+  }
+
+  /* Ensure the slide number is visible */
+  .reveal .slide-number {
+    display: block !important;   /* Force the slide number to be displayed */
+  }
 ---
+
 
 
 
@@ -105,14 +113,6 @@ $$
 -   The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean. 
 -   This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.
 
-## Introduction: Quantile Regression -H
-
--   Watch outs:
-
-    -   The more quantiles that are added, the smaller your sample size becomes. When you break your data into these sections you are actually breaking the sample population up and only looking at what fits in the given quantile. This can potentially cause validity issues if questioned about sample size [@Le_Cook2013-ku].
-
-    -   You also may run into crossing which shouldn't happen but seems inevitable. It is a worry that would make you think this method should be deemed invalid. Think of 4 equations across a data set split up between the varying sections within the data. Knowing that unless a line is perfectly parallel with another, intersection is deemed to happen at some point. A non crossing model is attainable [@Jiang2023-ey].
-
 ## Introduction: Quantile Regression, Goodness of Fit -L
 
 The formula for *R^2^* is as follows:
@@ -130,12 +130,19 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
 - The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  <br> 
 - The theory behind these methods is beyond the scope of this paper.
 
+## Introduction: Quantile Regression -H
+
+-   Watch outs:
+
+    -   The more quantiles that are added, the smaller your sample size becomes. When you break your data into these sections you are actually breaking the sample population up and only looking at what fits in the given quantile. This can potentially cause validity issues if questioned about sample size [@Le_Cook2013-ku].
+
+    -   You also may run into crossing which shouldn't happen but seems inevitable. It is a worry that would make you think this method should be deemed invalid. Think of 4 equations across a data set split up between the varying sections within the data. Knowing that unless a line is perfectly parallel with another, intersection is deemed to happen at some point. A non crossing model is attainable [@Jiang2023-ey].
 ## Introduction: Quantile Regression Applications -L
 
 -   Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.
 -   Olsen et al. [-@Olsen2017-ru] employed QR in a retrospective cohort study using data from insurer claims to identify factors affecting costs of infections following inpatient surgical procedures.
--   Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
--   QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
+  -   Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
+  -   QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
 
 ## Introduction: Quantile Regression Applications -H
 
