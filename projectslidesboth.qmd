@@ -26,23 +26,16 @@ fig-align: left
 css: |
   /* Ensure that table headers and cells also use the new font size */
   .reveal table th, .reveal table td {
+  }
+  }
     font-size: 14px;  /* Apply the same font size to headers and data cells */
     padding: 5px;     /* Optional: Adjust padding for readability */
-  }
-  /* Global left-align for all tables */
-  .reveal table {
     text-align: left;
     margin-left: 0;
-  }
-
   /* Ensure the slide number is visible */
   .reveal .slide-number {
     display: block !important;   /* Force the slide number to be displayed */
-  }
 ---
-
-
-
 
 ## Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Screening Survey Data
 
@@ -66,12 +59,14 @@ $$
 In the regression line equation 
 $$
 \hat{y} = \beta_0 + \beta_1 x
-$$ 
+$$
 where the intercept $\beta_0$ is 
 $$
 \beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
 $$ 
+
 and where the slope $\beta_1$ is 
+
 $$
 \beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
 $$
@@ -104,7 +99,7 @@ $$
 Q_Y(\tau \mid X) = X \beta(\tau)
 $$
 
--   Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient [@koenker2005quantile].
+-   Q is the quantile function, $\tau$ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient [@koenker2005quantile].
 
 ## Introduction: Quantile Regression -H
 
@@ -119,15 +114,15 @@ The formula for *R^2^* is as follows:
 
 $$
 R^2 = 1 - \frac{\sum \left(y_i - \hat{y}\right)^2}{\sum \left(y_i - \bar{y}\right)^2}
-$$ 
+$$
 - The sum of observed values $y_i$  is subtracted by the sum of fitted values $\hat{y}$ and squared, forming the numerator.  <br> 
 - The sum of observed values $y_i$ minus the sum of sample mean $\bar{y}$ and then squared, forming the denominator. <br> 
 - This formula may also be represented as 
 $$
 R^2 = 1 - \frac{RSS}{TSS}
 $$ 
-where RSS is the residual sum of squares and TSS is the total sum of squares.<br> 
-- The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  <br> 
+where RSS is the residual sum of squares and TSS is the total sum of squares.<br> - 
+The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  <br> 
 - The theory behind these methods is beyond the scope of this paper.
 
 ## Introduction: Quantile Regression -H
@@ -137,13 +132,13 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
     -   The more quantiles that are added, the smaller your sample size becomes. When you break your data into these sections you are actually breaking the sample population up and only looking at what fits in the given quantile. This can potentially cause validity issues if questioned about sample size [@Le_Cook2013-ku].
 
     -   You also may run into crossing which shouldn't happen but seems inevitable. It is a worry that would make you think this method should be deemed invalid. Think of 4 equations across a data set split up between the varying sections within the data. Knowing that unless a line is perfectly parallel with another, intersection is deemed to happen at some point. A non crossing model is attainable [@Jiang2023-ey].
-    
+
 ## Introduction: Quantile Regression Applications -L
 
 -   Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.
 -   Olsen et al. [-@Olsen2017-ru] employed QR in a retrospective cohort study using data from insurer claims to identify factors affecting costs of infections following inpatient surgical procedures.
-  -   Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
-  -   QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
+-   Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
+-   QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
 
 ## Introduction: Quantile Regression Applications -H
 
@@ -181,11 +176,11 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
 -   Survey topics include demographic information, socioeconomic factors, physical and mental health status, chronic conditions, and behaviors affecting physical and mental health.
 -   There is a minimum data collection requirement. Kentucky and Pennsylvania were omitted for not meeting that requirement.
 
-## Methodology: Research Question - Hewlett Project
+## Methodology: Research Question - Hewlett 
 
 -   I am looking to see if height and weight are significant predictors of the age participants are when informed they have diabetes.
 
-## Methodology: Predictor Variables - Hewlett Project
+## Methodology: Predictor Variables - Hewlett 
 
 -   DIABETE4 is a variable used for participants to share if they have ever been told they have diabetes. The acceptable responses were 1 (Yes), 2 (Yes, but female told only during pregnancy), 3 (No), 4 (No, pre-diabetes or borderline diabetes), 7 (Don't know/not sure), 9 (Refused). For the sake of this analysis, we stratified everything by 1 (Yes).
 
@@ -193,13 +188,15 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
 
 -   HEIGHT3 is a variable that allowed participants to share their height without shoes on. The acceptable responses recorded that I used are imperial. The metric responses were much larger and made sense to be metric.
 
-## Methodology: Response Variable - Hewlett Project
+## Methodology: Response Variable - Hewlett 
 
 -   DIABAGE4 is a variable that allows participants to share how old they were when told they first had diabetes. The acceptable responses are 1-97 (Age in years), 98 (Don't know/Not sure), 99 (Refused), and BLANK (Not asked or Missing)
 
--   To ensure smooth data acquisition. I ensured that this variable is only present in the stratified DIABETE4 (1) in the Table 1.
+-   To ensure smooth data acquisition. I ensured that this variable is only present in the stratified DIABETE4 (1) in Table 1.
 
-## Methodology: Analytic Methods - Hewlett Project
+## Methodology: Analytic Methods - Hewlett 
+
+Table 1.
 
 | Stratified by DIABETE4 |                 |                   |                  |                  |                |                |
 |-----------|-----------|-----------|-----------|-----------|-----------|-----------|
@@ -210,11 +207,15 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
 | HEIGHT3 (mean(SD))     | 610.68 (837.91) | 1115.53 (2145.01) | 709.05 (1238.72) | 738.83 (1335.65) | 508.54 (31.71) | 506.00 (1.41)  |
 
 ## Methodology: Analytic Methods - Hewlett
-Figure 1.
+
+Figure 1. 
+
 ![](https://hmh56.github.io/IDS6940Hewlett/diabage)
 
 ## Methodology: Analytical Methods - Hewlett
-Figure 2.
+
+Figure 2. 
+
 ![](https://hmh56.github.io/IDS6940Hewlett/weightage)
 
 ## Methodology: Analytic Methods - Hewlett
@@ -231,14 +232,14 @@ Figure 2.
 
 -   Created confidence intervals from scratch due to vcov error when running rq() models and trying to use the confint() function.
 
-## Methodology: Response Variable - Sikes Project
+## Methodology: Response Variable - Sikes 
 
--   Days per month a respondent’s poor health affected his or her activities of daily living (ADL)
+-   Days per month a respondent’s poor health affected his or her activities of daily living (ADL).
 -   Respondents asked to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs.
 -   Available responses were numeric values 1 – 30, none, refused, or don’t know/not sure.
 -   The authors note that quantile regression is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution.
 
-## Methodology: Predictor Variables - Sikes Project
+## Methodology: Predictor Variables - Sikes 
 
 -   Weight: Available responses including numeric values 50 – 776 in pounds, don’t know/not sure, refused, and a separate indicator for weight measured in kilograms.
 -   Education: Available responses included never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused.
@@ -246,7 +247,7 @@ Figure 2.
 -   Physical health: Number of days during the previous 30 days in which the respondent's physical or mental health were not good, with available responses including numeric values 1 - 30, refused, or don't know / not sure.
 -   Sex: Available responses were limited to male or female.
 
-## Methodology: Operationalization of Variables - Sikes Project
+## Methodology: Operationalization of Variables - Sikes 
 
 -   Dataset filtered to include only residents of the state of Florida and removed of values containing “Refused,” “Not sure / Don’t know”, or missing.
 -   Response variable ADL was filtered to include only numeric responses, and recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
@@ -255,14 +256,15 @@ Figure 2.
 -   Physical health and mental health were each recoded into four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
 -   All statistical analyses were performed using RStudio version 2024.04.2, build 764, “Chocolate Cosmos” release for Windows (Posit Software, PBC, 2024).
 
-## Methodology: Analytical Methods - Sikes Project
+## Methodology: Analytical Methods - Sikes 
 
 -   QR was performed to explore ADL as a function of weight.
 -   The distribution was divided into quartiles ($\tau$ = 0.25, 0.5, 0.75) to find the median values within each.
 -   Ordinary least squares regression (OLS) was performed using the same variables.
 
-## Results: Hewlett Project
-Table 1.
+## Results: Hewlett 
+
+Table 2.
 
 |        |                               | MM25     | MM50     | MM75    |
 |--------|-------------------------------|----------|----------|---------|
@@ -277,21 +279,25 @@ Table 1.
 |        | Lower 95% Confidence Interval | -0.032   | -0.057   | -0.079  |
 |        | P-Value                       | 0        | 0        | 0       |
 
-## Results: Hewlett Project
+## Results: Hewlett 
 
-Diabetics age informed of diagnosis as a function of weight and height. ![](https://hmh56.github.io/IDS6940Hewlett/graph)
+Diabetics age informed of diagnosis as a function of weight and height. <br>
 
-## Results: Descriptive Statistics - Sikes Project
+Figure 3.
 
--   Majority (42.6%) of considered respondents reported between 1 to 7 days of poor mental or physical health negatively impacting ADL, followed by \>21 days at 26.3% (Tables 2a - 2d).
+![](https://hmh56.github.io/IDS6940Hewlett/graph)
+
+## Results: Descriptive Statistics - Sikes 
+
+-   Majority (42.6%) of considered respondents reported between 1 to 7 days of poor mental or physical health negatively impacting ADL, followed by \>21 days at 26.3% (Tables 3a - 3d).
 -   Nearly one-third (31.9%) reported having greater than 21 days of poor physical health per month, while a similar portion (30.2%) reported having over 21 days of poor physical health.
 -   Over one-half (50.2%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.
 -   Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58).
 -   This sample is heavily skewed female with only 39.1% (n=493) identifying as male.
 
-## Results: Descripive Statistics - Sikes Project
+## Results: Descriptive Statistics - Sikes 
 
-Table 2a.
+Table 3a.
 
 | Category                            | n = 1319 |   \% |
 |-------------------------------------|---------:|-----:|
@@ -308,8 +314,9 @@ Table 2a.
 |    15-21                            |      212 | 16.8 |
 |    \>21                             |      402 | 31.9 |
 
-## Results: Descripive Statistics - Sikes Project2
-Table 2b.
+## Results: Descriptive Statistics - Sikes 
+
+Table 3b.
 
 | Category                                | n = 1319 |   \% |
 |-----------------------------------------|---------:|-----:|
@@ -325,9 +332,9 @@ Table 2b.
 |    15-21                                |      247 | 19.6 |
 |    \>21                                 |      332 | 26.3 |
 
-## Results: Descripive Statistics - Sikes Project
+## Results: Descriptive Statistics - Sikes 
 
-Table 2c.
+Table 3c.
 
 | Category                   | n = 1319 |   \% |
 |----------------------------|---------:|-----:|
@@ -337,9 +344,9 @@ Table 2c.
 |    Some College            |      450 | 35.7 |
 |    4 Years College or More |      420 | 33.3 |
 
-## Results: Descripive Statistics - Sikes Project
+## Results: Descriptive Statistics - Sikes 
 
-Table 2d.
+Table 3d.
 
 | Category               | n = 1319 |   \% |
 |------------------------|---------:|-----:|
@@ -355,9 +362,9 @@ Table 2d.
 |    Male                |      493 | 39.1 |
 |    Female              |      826 | 65.5 |
 
-## Results: Quantile Regression - Sikes Project
+## Results: Quantile Regression - Sikes 
 
-Table 3.
+Table 4.
 
 | Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | p-Value |
 |----------|---------------------------|--------------|--------------|---------|
@@ -367,14 +374,13 @@ Table 3.
 
 Note. $\alpha$ = 0.05
 
-## Results: Quantile Regression - Sikes Project
+## Results: Quantile Regression - Sikes 
 
-Figure 3.
+Figure 4.
 
-Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of Weight (lbs) 
-![Graph](https://les14uwf.github.io/notsure/qrplot.png)
+Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of Weight (lbs) ![Graph](https://les14uwf.github.io/notsure/qrplot.png)
 
-## Discussion: Hewlett Project
+## Discussion: Hewlett 
 
 -   The predictor variable weight turned out to be a significant predictor. The p value was less than alpha. This was true in all quantiles.
 
@@ -384,9 +390,9 @@ Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of 
 
 -   We could also see in the MM25 model (0.25 quantile) the responses of refusal and don't know were skewing that regression line.
 
-## Discussion: Sikes Project
+## Discussion: Sikes 
 
-Table 3.
+Table 4.
 
 | Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | <i>p</i>-Value |
 |---------------|---------------|---------------|---------------|---------------|
@@ -394,11 +400,11 @@ Table 3.
 | 0.50     | 0.000                     | -0.013       | 0.013        | 1.000          |
 | 0.75     | 0.032                     | -0.004       | 0.068        | 0.078          |
 
--   At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.95 level (<i>p</i>=0.158) (Table 3). This finding is not statistically significant.
--   At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health is not detected at the $\alpha$ = 0.95 level (<i>p</i>=1.000). This finding is not statistically significant.
+-   At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.05 level (<i>p</i>=0.158) (Table 4). This finding is not statistically significant.
+-   At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health is not detected at the $\alpha$ = 0.05 level (<i>p</i>=1.000). This finding is not statistically significant.
 -   At the third quartile ($\tau$ = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADL affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078). This finding is not statistically significant.
 
-## Discussion: Sikes Project
+## Discussion: Sikes 
 
 -   Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.\
 -   Weight (lbs) may have a larger effect at the higher extreme of the distribution not examined in this study.
@@ -411,6 +417,3 @@ Table 3.
 -   With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our data.
 
 ## References
-
-
-
