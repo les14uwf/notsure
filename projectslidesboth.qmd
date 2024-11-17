@@ -137,6 +137,7 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
     -   The more quantiles that are added, the smaller your sample size becomes. When you break your data into these sections you are actually breaking the sample population up and only looking at what fits in the given quantile. This can potentially cause validity issues if questioned about sample size [@Le_Cook2013-ku].
 
     -   You also may run into crossing which shouldn't happen but seems inevitable. It is a worry that would make you think this method should be deemed invalid. Think of 4 equations across a data set split up between the varying sections within the data. Knowing that unless a line is perfectly parallel with another, intersection is deemed to happen at some point. A non crossing model is attainable [@Jiang2023-ey].
+    
 ## Introduction: Quantile Regression Applications -L
 
 -   Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.
