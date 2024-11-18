@@ -41,7 +41,7 @@ css: |
 
 Authors: Hamilton Hewlett & Laura Sikes, MPH, CPH <br> Group: Not Sure <br> Instructor: Dr. Samantha Seals <br> Date: November 19, 2024
 
-## Introduction: Regression Overview L
+## Introduction: Regression Overview 
 
 -   Regression is a method used to predict outcomes based on the behavior of variables within a dataset relative to a mean.
 -   Of an infinite number of lines that can be drawn through the data, the one best describing an overall relationship is the one with the smallest sum of the square of the errors.
@@ -54,7 +54,7 @@ $$
 \hat{y} = \beta_0 + \beta_1 x
 $$
 
-## Introduction: Regression Overview -H
+## Introduction: Regression Overview 
 
 In the regression line equation 
 $$
@@ -73,7 +73,7 @@ $$
 
 Based on the above, predictions can be made about what would happen along the regression line where there are no data points.
 
-## Introduction: Regression Overview -H
+## Introduction: Regression Overview 
 
 -   Assumptions [@zambesi2024]:
 
@@ -87,7 +87,7 @@ Based on the above, predictions can be made about what would happen along the re
 
         -   The variables must not be dependent on each other when performing analysis
 
-## Introduction: Quantile Regression -L
+## Introduction: Quantile Regression 
 
 -   Quantile regression (QR) is a statistical approach that divides a distribution into different sections and finds the median point inside each one. 
 -   This approach is especially useful when a distribution contains exceedingly high or low values, given that medians are not as influenced by extreme values as compared to means. 
@@ -101,14 +101,14 @@ $$
 
 -   Q is the quantile function, $\tau$ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient [@koenker2005quantile].
 
-## Introduction: Quantile Regression -H
+## Introduction: Quantile Regression 
 
 -   QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution [@Cohen2016-ix].
 -   Koenker and Machado [-@Koenker1999-py] identified the absence of a suitable goodness-of-fit assessment for this statistical method.
 -   The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean. 
 -   This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.
 
-## Introduction: Quantile Regression, Goodness of Fit -L
+## Introduction: Quantile Regression, Goodness of Fit 
 
 The formula for *R^2^* is as follows:
 
@@ -125,7 +125,7 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.<br
 The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  <br> 
 - The theory behind these methods is beyond the scope of this paper.
 
-## Introduction: Quantile Regression -H
+## Introduction: Quantile Regression 
 
 -   Watch outs:
 
@@ -133,14 +133,14 @@ The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n
 
     -   You also may run into crossing which shouldn't happen but seems inevitable. It is a worry that would make you think this method should be deemed invalid. Think of 4 equations across a data set split up between the varying sections within the data. Knowing that unless a line is perfectly parallel with another, intersection is deemed to happen at some point. A non crossing model is attainable [@Jiang2023-ey].
 
-## Introduction: Quantile Regression Applications -L
+## Introduction: Quantile Regression Applications 
 
 -   Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.
 -   Olsen et al. [-@Olsen2017-ru] employed QR in a retrospective cohort study using data from insurer claims to identify factors affecting costs of infections following inpatient surgical procedures.
 -   Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.
 -   QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
 
-## Introduction: Quantile Regression Applications -H
+## Introduction: Quantile Regression Applications 
 
 -   Waldmann [-@Waldmann2018-es] utilized body mass index (BMI) data to illustrate the usefulness of QR.
 
@@ -154,7 +154,7 @@ The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n
 
 -   The authors divided the distribution into percentiles and quartiles, and found that significant relationships existed inside several quantiles that were not significant when using linear regression on the entire distribution. 
 
-## Introduction: Quantile Regression Applications -L
+## Introduction: Quantile Regression Applications 
 
 -   Staffa et al. [-@Staffa2019-lz] employed QR to understand relationships between ventilator dependence and hospital length of stay, suspecting that these relationships changed across different quantiles. -The authors found stronger relationships between the predictor variables inside the upper quantiles of the length of stay outcome. 
 
@@ -162,13 +162,13 @@ The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n
 
 -   Machado and Silva [-@Machado2005-ua] explored the use of QR for count data by incorporating artificial smoothness, allowing inferences to be made about the conditional quartiles.  The authors note that count data is often severely skewed, making it an excellent candidate for QR which is more resilient against skewness given its use of medians over means.
 
-## Introduction: Quantile Regression Applications -H
+## Introduction: Quantile Regression Applications 
 
 -   Le Cook and Manning [-@Le_Cook2013-ku] showed that through quantile regression, raising taxes on alcohol did not reduce consumption rates of heavy alcohol users as it was intended. This study broke users into three groups, light, moderate, and heavy drinkers. Results using quantile regression showed that the light and heavy drinkers were not sensitive to the increase in price. Study showed that it only deterred moderate drinkers.
 
 -   Le Cook and Manning [-@Le_Cook2013-ku] also discuss how quantile regression is necessary when observing health care expenditures. They show that users can be more effectively analyzed when broken into sub groups depending on healthcare usage. This sheds more light on user's status such as race, employment, gender, and insurance status among others. This is far more effective in analyzing data rather than regression based off the mean. This will not tell you the full story.
 
-## Methodology: Study Design and Data -L
+## Methodology: Study Design and Data 
 
 -   Cross-sectional study using 2023 Behavioral Risk Factor Surveillance System (BRFSS) published by Centers for Disease Control and Prevention (CDC).
 -   BRFSS is a yearly survey conducted via land-line and cellular telephone [@noauthor_2024-gu].
@@ -237,11 +237,12 @@ Figure 2.
 -   Days per month a respondent’s poor health affected his or her activities of daily living (ADL).
 -   Respondents asked to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs.
 -   Available responses were numeric values 1 – 30, none, refused, or don’t know/not sure.
--   The authors note that quantile regression is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution.
+
 
 ## Methodology: Predictor Variables - Sikes 
 
 -   Weight: Available responses including numeric values 50 – 776 in pounds, don’t know/not sure, refused, and a separate indicator for weight measured in kilograms.
+-   Self-Assessed Health: "Excellent", "Very Good", "Good", "Fair", and "Poor".
 -   Education: Available responses included never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused.
 -   Income in U.S. dollars: Available responses included \<10,000, \$10,000 to \< \$15,000, \$15,000 to \< \$20,000, \$20,000 to \< \$25,000, \$25,000 to \< \$35,000, \$35,000 to \< \$50,000, \$50,000 to \< \$75,000, \$75,000 to \< \$100,000, \$100,000 to \< \$150,000, \$150,000 to \< \$200,000, \$200,000 or more, don’t know/not sure, and refused.
 -   Physical health: Number of days during the previous 30 days in which the respondent's physical or mental health were not good, with available responses including numeric values 1 - 30, refused, or don't know / not sure.
@@ -250,7 +251,7 @@ Figure 2.
 ## Methodology: Operationalization of Variables - Sikes 
 
 -   Dataset filtered to include only residents of the state of Florida and removed of values containing “Refused,” “Not sure / Don’t know”, or missing.
--   Response variable ADL was filtered to include only numeric responses, and recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
+-   Response variable ADL was filtered to include only numeric responses, and for the descriptive analysis only it recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
 -   Education was recoded as follows: “Less than High School,”, “High School or GED,” “Some College”, and “4 Years of College or Higher.
 -   Income was recoded into six groups as follows: “\<\$25,000”, “\$25,000-\$34,999”, “\$35,000-\$49,000”, “\$50,000-\$74,999”, “\$75,000-\$99,999”, and “\>\$100,000”.
 -   Physical health and mental health were each recoded into four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.
@@ -289,11 +290,13 @@ Figure 3.
 
 ## Results: Descriptive Statistics - Sikes 
 
--   Majority (42.6%) of considered respondents reported between 1 to 7 days of poor mental or physical health negatively impacting ADL, followed by \>21 days at 26.3% (Tables 3a - 3d).
--   Nearly one-third (31.9%) reported having greater than 21 days of poor physical health per month, while a similar portion (30.2%) reported having over 21 days of poor physical health.
--   Over one-half (50.2%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.
+-   More than one-half (52.2%) categorized their general health as "Fair" or "Poor" (Tables 3a - 3d).
+-   Nearly one-third (30.5%) reported having greater than 21 days of poor physical health per month, while 40.7% reported 7 or fewer days of poor physical health.
+-   Over one-third (36.5%) reported having between 1 and 7 days of poor mental health per month.  
+-   The largest portion of respondents (41.6%) reported 7 or fewer of days ADLs affected by poor mental or physical health.
+-   Nearly one-half (48.7%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.
+-   This sample is heavily skewed female with only 37.3% identifying as male.
 -   Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58).
--   This sample is heavily skewed female with only 39.1% (n=493) identifying as male.
 
 ## Results: Descriptive Statistics - Sikes 
 
@@ -302,17 +305,17 @@ Table 3a.
 | Category                            | n = 1319 |   \% |
 |-------------------------------------|---------:|-----:|
 | **Self-Assessed General Health**    |          |      |
-|    Excellent                        |       42 |  3.3 |
-|    Very Good                        |      205 | 16.3 |
-|    Good                             |      383 | 30.4 |
-|    Fair                             |      424 | 33.6 |
-|    Poor                             |      265 | 21.0 |
+|    Excellent                        |       42 |  3.2 |
+|    Very Good                        |      205 | 15.5 |
+|    Good                             |      383 | 29.0 |
+|    Fair                             |      424 | 32.1 |
+|    Poor                             |      265 | 20.1 |
 |                                     |          |      |
 | **Poor Physical Health Days / Mo.** |          |      |
-|    1-7                              |      537 | 42.6 |
-|    8-14                             |      168 | 13.3 |
-|    15-21                            |      212 | 16.8 |
-|    \>21                             |      402 | 31.9 |
+|    1-7                              |      537 | 40.7 |
+|    8-14                             |      168 | 12.7 |
+|    15-21                            |      212 | 16.1 |
+|    \>21                             |      402 | 30.5 |
 
 ## Results: Descriptive Statistics - Sikes 
 
@@ -321,16 +324,16 @@ Table 3b.
 | Category                                | n = 1319 |   \% |
 |-----------------------------------------|---------:|-----:|
 | **Poor Mental Health Days / Mo.**       |          |      |
-|    1-7                                  |      481 | 38.1 |
-|    8-14                                 |      210 | 16.7 |
-|    15-21                                |      247 | 19.6 |
-|    \>21                                 |      381 | 30.2 |
+|    1-7                                  |      481 | 36.5 |
+|    8-14                                 |      210 | 15.9 |
+|    15-21                                |      247 | 18.7 |
+|    \>21                                 |      381 | 28.9 |
 |                                         |          |      |
 | **Poor Health Days Affected ADL / Mo.** |          |      |
-|    1-7                                  |      549 | 43.5 |
-|    8-14                                 |      191 | 15.1 |
-|    15-21                                |      247 | 19.6 |
-|    \>21                                 |      332 | 26.3 |
+|    1-7                                  |      549 | 41.6 |
+|    8-14                                 |      191 | 14.5 |
+|    15-21                                |      247 | 18.7 |
+|    \>21                                 |      332 | 25.2 |
 
 ## Results: Descriptive Statistics - Sikes 
 
@@ -339,8 +342,8 @@ Table 3c.
 | Category                   | n = 1319 |   \% |
 |----------------------------|---------:|-----:|
 | **Education**              |          |      |
-|    Less than High School   |      104 |  8.2 |
-|    High School or GED      |      345 | 27.4 |
+|    Less than High School   |      104 |  7.9 |
+|    High School or GED      |      345 | 27.2 |
 |    Some College            |      450 | 35.7 |
 |    4 Years College or More |      420 | 33.3 |
 
@@ -351,20 +354,22 @@ Table 3d.
 | Category               | n = 1319 |   \% |
 |------------------------|---------:|-----:|
 | **Annual Income**      |          |      |
-|    ≤ \$24,999          |      413 | 32.8 |
+|    ≤ \$24,999          |      413 | 31.3 |
 |    \$25,000 - \$34,999 |      220 | 17.4 |
-|    \$35,000 - \$49,999 |      183 | 14.5 |
-|    \$50,000 - \$74,999 |      192 | 15.2 |
-|    \$75,000 - \$99,999 |      146 | 11.6 |
-|    ≥\$100,000          |      165 | 13.1 |
+|    \$35,000 - \$49,999 |      183 | 13.9 |
+|    \$50,000 - \$74,999 |      192 | 14.6 |
+|    \$75,000 - \$99,999 |      146 | 11.1 |
+|    ≥\$100,000          |      165 | 12.5 |
 |                        |          |      |
 | **Sex**                |          |      |
-|    Male                |      493 | 39.1 |
-|    Female              |      826 | 65.5 |
+|    Male                |      493 | 37.3 |
+|    Female              |      826 | 62.7 |
+
+- Weight in lbs ranged from 82 - 500 (SD = 53.58)
 
 ## Results: Quantile Regression - Sikes 
 
-Table 4.
+Table 4.  Quantile regression analysis of poor ADL days per month as a function of weight.
 
 | Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | p-Value |
 |----------|---------------------------|--------------|--------------|---------|
@@ -376,9 +381,9 @@ Note. $\alpha$ = 0.05
 
 ## Results: Quantile Regression - Sikes 
 
-Figure 4.
+Figure 4. Quantile regression analysis of poor ADL days per month as a function of weight.
 
-Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of Weight (lbs) ![Graph](https://les14uwf.github.io/notsure/qrplot.png)
+![Graph](https://les14uwf.github.io/notsure/qrplot.png)
 
 ## Discussion: Hewlett 
 
@@ -392,7 +397,7 @@ Days per Month ADLs Affected by Poor Mental or Physical Health as a Function of 
 
 ## Discussion: Sikes 
 
-Table 4.
+Table 4. Quantile regression analysis of poor ADL days per month as a function of weight.
 
 | Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | <i>p</i>-Value |
 |---------------|---------------|---------------|---------------|---------------|
