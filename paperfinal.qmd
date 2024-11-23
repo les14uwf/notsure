@@ -103,7 +103,7 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.
 
 Study Design and Data
 
-            This is a cross-sectional study using the 2023 Behavioral Risk Factor Surveillance System (BRFSS) dataset published by the Centers for Disease Control and Prevention (CDC). This yearly survey is conducted via landline and cellular telephone, and includes United States residents aged 18 years and older [@noauthor_2024-gu]. Survey topics include demographic information, socioeconomic factors, physical and mental health status, chronic conditions, as well as behaviors that can impact physical and mental health.
+            This is a cross-sectional study using the 2023 Behavioral Risk Factor Surveillance System (BRFSS) dataset published by the Centers for Disease Control and Prevention (CDC). This yearly survey is conducted via land line and cellular telephone, and includes United States residents aged 18 years and older [@noauthor_2024-gu]. Survey topics include demographic information, socioeconomic factors, physical and mental health status, chronic conditions, as well as behaviors that can impact physical and mental health.
 
 Response Variable
 
@@ -125,7 +125,7 @@ Analytical Method
 
 # Results
 
-           Within this sample, more than one-half (52.2%) categorized their general health as "Fair" or "Poor" (Table 1).  Nearly one-third (30.5%) reported having greater than 21 days of poor physical health per month, while 40.7% reported 7 or fewer days of poor physical health.  Over one-third (36.5%) reported having between 1 and 7 days of poor mental health per month.  The largest portion of respondents (41.6%) reported 7 or fewer of days ADLs affected by poor mental or physical health.  Nearly one-half (48.7%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.  This sample is heavily skewed female with only 37.3% identifying as male.  Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58).
+           Within this sample, more than one-half (52.2%) categorized their general health as "Fair" or "Poor" (Table 1).  Nearly one-third (30.5%) reported having greater than 21 days of poor physical health per month, while 40.7% reported 7 or fewer days of poor physical health.  Over one-third (36.5%) reported having between 1 and 7 days of poor mental health per month.  The largest portion of respondents (41.6%) reported 7 or fewer of days ADLs affected by poor mental or physical health.  Nearly one-half (48.7%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.  This sample is heavily skewed female with only 37.3% identifying as male.  Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58) (Figure 1).
 
 Table 1. Descriptive Statistics.
 
@@ -176,7 +176,17 @@ Table 1. Descriptive Statistics.
 
 <br>
 
-<br>Table 2. Quantile regression analysis of poor ADL days per month as a function of weight.
+<br>
+<br>Figure 1. Sample distribution of weight in pounds (n=1319).
+
+![Graph](https://les14uwf.github.io/notsure/weighthistogram.PNG)
+<br>
+
+<br>
+<br>
+
+
+<br>Table 2. Quantile regression analysis of poor ADL days per month as a function of weight (n=1319).
 
 | Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | <i>p</i>-Value |
 |---------------|---------------|---------------|---------------|---------------|
@@ -186,7 +196,9 @@ Table 1. Descriptive Statistics.
 Note. $\alpha$ = 0.05.<br>
 <br>
 
-<br>Figure 1. Quantile regression analysis of poor ADL days per month as a function of weight.
+
+
+<br>Figure 2. Quantile regression analysis of poor ADL days per month as a function of weight (n=1319).
 
 ![Graph](https://les14uwf.github.io/notsure/qrplot.png)
 Note. $\alpha$ = 0.05.<br>
@@ -194,14 +206,14 @@ Note. $\alpha$ = 0.05.<br>
 
 # Discussion 
            At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.05 level (<i>p</i>=0.158) (Table 2). At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health was not detected at the $\alpha$ = 0.05 level (<i>p</i>=1.000). At the third quartile ($\tau$ = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078). These findings were not statistically significant.<br>
-           Figure 1 illustrates the QR model with the 25th percentile in yellow, the 50th percentile in green, the 75th percentile in blue, and OLS represented by a black dotted line.  A visual comparison of the slopes suggests the strongest effect of weight on the number of affected ADL days at the 75th percentile ($\tau$ = 0.75).  
-           Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  Weight may have a larger effect at the higher extreme of the distribution, but was not examined in this study.  Future studies may find a statistically-significant effect at the ninetieth ($\tau$ = 0.90) or ninety-fifth ($\tau$ = 0.95) percentiles.<br>
+           Figure 2 illustrates the QR model with the 25th percentile in yellow, the 50th percentile in green, the 75th percentile in blue, and OLS represented by a black dotted line.  A visual comparison of the slopes suggests the strongest effect of weight on the number of affected ADL days at the 75th percentile ($\tau$ = 0.75).  
+           Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  Weight may have a larger effect at the higher extreme of the distribution, but was not examined in this study.  Future studies may find a statistically-significant effect at the ninetieth ($\tau$ = 0.90) or ninety-fifth ($\tau$ = 0.95) quantiles<br>
            <br>
 Limitations<br>
 <br>
            This study has limitations.  As a cross-sectional study design, the results can provide insights into relationships between variables but causality cannot be established.  This analysis is limited to a single year and does not show trends over time.  The female sex was over-represented at 62.7% of the sample relative to the state of Florida's 2023 female population at 50.9% [@census2023fl].  The original dataset was built using telephone survey data, which excludes members of the population without access to telephones as well as those who do not answer calls from unknown numbers.
 
 ## Conclusion
-           QR is well-represented within the literature and has numerous advantages over traditional regression models when relationships between variables are suspected to change across quantiles.  QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution.  With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our data.
+           QR is well-represented within the literature and offers numerous advantages over traditional regression models where relationships between variables are suspected to change across quantiles.  QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution.  With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our [data.](https://les14uwf.github.io/notsure/sorry.PNG)
 
 # References
