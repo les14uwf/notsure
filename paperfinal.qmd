@@ -1,0 +1,207 @@
+---
+title: "Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Surveillance Survey"
+author: "Laura E. Sikes, MPH, CPH"
+format: html
+self-contained: true
+editor: visual
+knitr:
+  opts_chunk: 
+    echo: false
+    warning: false
+    message: false
+    results: "asis"
+execute:
+  echo: false
+  warning: false
+  message: false
+  error: false
+  results: 'hide'
+csl: https://www.zotero.org/styles/apa
+bibliography: "referencesppr.bib"
+fig-align: left
+---
+
+```{r}
+
+#install.packages("dplyr")    # alternative installation of the %>%
+#library(devtools)
+#install_github("ieb2/classpackage", force = TRUE)
+#library(classpackage)#install.packages("glmtoolbox")
+#install.packages("devtools")
+
+library(dplyr)       
+library(tidyverse)  
+library(classpackage) 
+library(foreign)      
+library(haven)       
+library(glue)         
+library(tinytex)      
+library(ggpubr)       
+
+
+```
+
+            Regression is a method used to predict outcomes based on the behavior of variables within a dataset relative to a mean.  Of an infinite number of lines that can be drawn through the data, the one best describing an overall relationship is the one with the smallest sum of the square of the errors.  The errors measure the distance from each data point to the line, then each value is squared, and those squares are summed.  The distances are squared in order to eliminate the negative properties of the distances that are found between the line and the data points below it.  The line of best fit is one that produces the smallest sum of these squares.  The formula for the regression line is
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+In the above equation, the slope $\beta_1$ is 
+$$
+\beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
+$$ 
+in which the *x* and *y* values are multiplied and summed, then multiplied by the total number of *x* and *y* observations.  That value is subtracted by the sum of *x* values and the sum of *y* values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the *x* values squared, and then subtracted by the square of sum of all of the *x* values.  The numerator is then divided by the denominator.
+
+The intercept $\beta_0$ is
+
+$$
+\beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
+$$
+
+in which the sum of the response *y* values is divided by the number of observations *n*, and then subtracted by the slope $\beta_1$ multiplied by the sum of the predictor *x* values and divided by the number of observations *n*. 
+
+            Based on the above, predictions can be made about what would happen along the regression line where there are no data points, provided these predictions do not exceed the minimum and maximum boundaries of the data points.
+
+            Quantile regression (QR) is a unique statistical approach that divides a distribution into different sections and finds the median point inside each one.  This can be done in quartiles, where the distribution is evenly divided at 25% increments; in percentiles, where the distribution is evenly divided at 10% increments; or other types of quantiles where the distribution is divided into other numbers of sections as desired.  This approach is especially useful when a distribution contains exceedingly high or low values, given that medians are not as influenced by extreme values as compared to means.  QR is often an excellent solution when only one upper or lower end of a distribution contains a key variable.  Further, variables may enjoy unique relationships within different sections of a distribution [@Buhai2005-zi]. 
+
+The equation for QR is
+
+$$
+Q_Y(\tau \mid X) = X \beta(\tau)
+$$
+
+where Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient [@koenker2005quantile].
+
+            QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution [@Cohen2016-ix].  Koenker and Machado [-@Koenker1999-py] identified the absence of a suitable goodness-of-fit assessment for this statistical method.  The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean.  This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.  The formula is as follows:
+
+$$
+R^2 = 1 - \frac{\sum \left(y_i - \hat{y}\right)^2}{\sum \left(y_i - \bar{y}\right)^2}
+$$
+
+in which the sum of observed values $y_i$  is subtracted by the sum of fitted values $\hat{y}$ and squared, forming the numerator.  The sum of observed values $y_i$ minus the sum of sample mean $\bar{y}$ and then squared, forming the denominator.  This formula may also be represented as
+
+$$
+R^2 = 1 - \frac{RSS}{TSS}
+$$
+
+where RSS is the residual sum of squares and TSS is the total sum of squares.
+
+           The post-hoc testing methods Koenker and Machado proposed are Δ~n~(τ), **W**~n~(τ), and T~n~(τ), which the authors claimed would vastly enhance the capacity for quantile regression inference.  The theory behind these methods is beyond the scope of this paper.
+
+           Applications for QR are found in a diverse array of fields, including economics, ecology, real estate, and healthcare.  For example, Olsen et al. [-@Olsen2017-ru], employed QR in a retrospective cohort study using data from insurer claims to identify factors affecting costs of infections following inpatient surgical procedures.  Serious infections were categorized as those occurring in hospital or needing follow-up surgery, and were found to be the most costly.  QR provided a method to focus on different factors associated with costs for the serious surgical infections located within that quantile. 
+
+            Waldmann [-@Waldmann2018-es] utilized body mass index (BMI) data to illustrate the usefulness of QR.  The author’s goal was to answer questions about the outer portions of the distribution, which in this case was boys with the highest BMI.  QR afforded the author insight into how predictor variables can have stronger or weaker effects within different areas of the distribution. 
+
+            Cohen et al. [-@Cohen2016-ix] used QR to evaluate the relationships between community demographics and perceived resilience.  The authors divided the distribution into percentiles and quartiles, and found that significant relationships existed inside several quantiles that were not significant when using linear regression on the entire distribution. 
+
+            Staffa et al. [-@Staffa2019-lz] employed QR to understand relationships between ventilator dependence and hospital length of stay, suspecting that these relationships changed across different quantiles.  The authors found stronger relationships between the predictor variables inside the upper quantiles of the length of stay outcome. 
+
+            Machado and Silva [-@Machado2005-ua] explored the use of QR for count data by incorporating artificial smoothness, allowing inferences to be made about the conditional quartiles.  The authors note that count data is often severely skewed, making it an excellent candidate for QR which is more resilient against skewness given its use of medians over means.
+
+
+# Methods
+
+Study Design and Data
+
+            This is a cross-sectional study using the 2023 Behavioral Risk Factor Surveillance System (BRFSS) dataset published by the Centers for Disease Control and Prevention (CDC). This yearly survey is conducted via landline and cellular telephone, and includes United States residents aged 18 years and older [@noauthor_2024-gu]. Survey topics include demographic information, socioeconomic factors, physical and mental health status, chronic conditions, as well as behaviors that can impact physical and mental health.
+
+Response Variable
+
+            The response variable considered is days per month a respondent’s poor health affected his or her activities of daily living (ADL). Respondents were asked to assess their own mental and physical health for the previous 30 days and then to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs. Available responses were numeric values 1 – 30, none, refused, or don’t know/[not sure](https://les14uwf.github.io/notsure/notsure.mov).
+
+Predictor Variables
+
+            Predictor variables include weight, sex, education, income, physical health, and mental health. Regarding weight, respondents were asked to approximate their weight in pounds while wearing shoes, with available responses being numeric values 50 – 776, don’t know/not sure, Refused, and a separate indicator for weight measured in kilograms. Education was divided into nine categories as follows: never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused. Income in U.S. dollars was divided as follows: \<10,000, \$10,000 to \< \$15,000, \$15,000 to \< \$20,000, \$20,000 to \< \$25,000, \$25,000 to \< \$35,000, \$35,000 to \< \$50,000, \$50,000 to \< \$75,000, \$75,000 to \< \$100,000, \$100,000 to \< \$150,000, \$150,000 to \< \$200,000, \$200,000 or more, don’t know/not sure, and refused. Regarding physical health or mental health, respondents were asked the number of days during the previous 30 days in which their physical or mental health were not good. Possible responses were numeric values 1 – 30, none, refused, or don’t know/not sure. Regarding sex, respondents were given only the choice between male and female.
+
+Operationalization of Variables
+
+           The dataset was filtered to include only residents of the state of Florida and removed of values containing “Refused,” “Not sure / Don’t know”, or missing. The response variable ADL was filtered to include only numeric responses, and recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.\
+           Regarding predictor variables, education was recoded as follows: “Less than High School,”, “High School or GED,” “Some College”, and “4 Years of College or Higher”. Income was recoded into six groups as follows: “\<\$25,000”, “\$25,000-\$34,999”, “\$35,000-\$49,000”, “\$50,000-\$74,999”, “\$75,000-\$99,999”, and “\>\$100,000”. Physical health and mental health were each recoded into four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.\
+           All statistical analyses were performed using RStudio version 2024.04.2, build 764, “Chocolate Cosmos” release for Windows (Posit Software, PBC, 2024).            
+
+Analytical Method
+
+            QR was performed to explore days per month of affected ADLs as a function of weight. The distribution was divided into quartiles ($\tau$ = 0.25, 0.5, 0.75) to find the median values for each. Ordinary least squares regression (OLS) was performed using the same predictor and response variables for comparison purposes.
+
+# Results
+
+           Within this sample, more than one-half (52.2%) categorized their general health as "Fair" or "Poor" (Table 1).  Nearly one-third (30.5%) reported having greater than 21 days of poor physical health per month, while 40.7% reported 7 or fewer days of poor physical health.  Over one-third (36.5%) reported having between 1 and 7 days of poor mental health per month.  The largest portion of respondents (41.6%) reported 7 or fewer of days ADLs affected by poor mental or physical health.  Nearly one-half (48.7%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.  This sample is heavily skewed female with only 37.3% identifying as male.  Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58).
+
+Table 1. Descriptive Statistics.
+
+| Variable                                | n = 1319 |   \% |
+|-----------------------------------------|---------:|-----:|
+| Self-Assessed General Health            |          |      |
+|    Excellent                            |       42 |  3.2 |
+|    Very Good                            |      205 | 15.5 |
+|    Good                                 |      383 | 29.0 |
+|    Fair                                 |      424 | 32.1 |
+|    Poor                                 |      265 | 20.1 |
+|                                         |          |      |
+| Poor Physical Health Days / Mo.         |          |      |
+|    1-7                                  |      537 | 40.7 |
+|    8-14                                 |      168 | 12.7 |
+|    15-21                                |      212 | 16.1 |
+|    \>21                                 |      402 | 30.5 |
+|                                         |          |      |
+| Poor Mental Health Days / Mo.           |          |      |
+|    1-7                                  |      481 | 36.5 |
+|    8-14                                 |      210 | 15.9 |
+|    15-21                                |      247 | 18.7 |
+|    \>21                                 |      381 | 28.9 |
+|                                         |          |      |
+| Poor Health Days Affected ADL / Mo.     |          |      |
+|    1-7                                  |      549 | 41.6 |
+|    8-14                                 |      191 | 14.5 |
+|    15-21                                |      247 | 18.7 |
+|    \>21                                 |      332 | 25.2 |
+|                                         |          |      |
+| Education                               |          |      |
+|    Less than High School                |      104 |  7.9 |
+|    High School or GED                   |      345 | 27.2 |
+|    Some College                         |      450 | 35.7 |
+|    4 Years College or More              |      420 | 33.3 |
+|                                         |          |      |
+| Annual Income                           |          |      |
+|    ≤ \$24,999                           |      413 | 31.3 |
+|    \$25,000 - \$34,999                  |      220 | 17.4 |
+|    \$35,000 - \$49,999                  |      183 | 13.9 |
+|    \$50,000 - \$74,999                  |      192 | 14.6 |
+|    \$75,000 - \$99,999                  |      146 | 11.1 |
+|    ≥\$100,000                           |      165 | 12.5 |
+|                                         |          |      |
+| Sex                                     |          |      |
+|    Male                                 |      493 | 37.3 |
+|    Female                               |      826 | 62.7 |<br>
+
+<br>
+
+<br>Table 2. Quantile regression analysis of poor ADL days per month as a function of weight.
+
+| Quartile | Poor ADL Days Coefficient | 95% Lower CI | 95% Upper CI | <i>p</i>-Value |
+|---------------|---------------|---------------|---------------|---------------|
+| 0.25     | 0.005                     | -0.002       | 0.012        | 0.158          |
+| 0.50     | 0.000                     | -0.013       | 0.013        | 1.000          |
+| 0.75     | 0.032                     | -0.004       | 0.068        | 0.078          |
+Note. $\alpha$ = 0.05.<br>
+<br>
+
+<br>Figure 1. Quantile regression analysis of poor ADL days per month as a function of weight.
+
+![Graph](https://les14uwf.github.io/notsure/qrplot.png)
+Note. $\alpha$ = 0.05.<br>
+<br>
+
+# Discussion 
+           At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.05 level (<i>p</i>=0.158) (Table 2). At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health was not detected at the $\alpha$ = 0.05 level (<i>p</i>=1.000). At the third quartile ($\tau$ = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078). These findings were not statistically significant.<br>
+           Figure 1 illustrates the QR model with the 25th percentile in yellow, the 50th percentile in green, the 75th percentile in blue, and OLS represented by a black dotted line.  A visual comparison of the slopes suggests the strongest effect of weight on the number of affected ADL days at the 75th percentile ($\tau$ = 0.75).  
+           Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  Weight may have a larger effect at the higher extreme of the distribution, but was not examined in this study.  Future studies may find a statistically-significant effect at the ninetieth ($\tau$ = 0.90) or ninety-fifth ($\tau$ = 0.95) percentiles.<br>
+           <br>
+Limitations<br>
+<br>
+           This study has limitations.  As a cross-sectional study design, the results can provide insights into relationships between variables but causality cannot be established.  This analysis is limited to a single year and does not show trends over time.  The female sex was over-represented at 62.7% of the sample relative to the state of Florida's 2023 female population at 50.9% [@census2023fl].  The original dataset was built using telephone survey data, which excludes members of the population without access to telephones as well as those who do not answer calls from unknown numbers.
+
+## Conclusion
+           QR is well-represented within the literature and has numerous advantages over traditional regression models when relationships between variables are suspected to change across quantiles.  QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution.  With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our data.
+
+# References

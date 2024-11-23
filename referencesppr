@@ -1,0 +1,300 @@
+@article{koenkerhallock2019,
+  title={Quantile Regression},
+  author={Koenker R, Hallock K},
+  journal={Nature methods},
+  volume={15},
+  number={4},
+  pages={143-156},
+  year={2019},
+  publisher={American Economic Association}
+}
+
+@article{koenkerreyaghion2017,
+  title={Quantile Regression: 40 Years On},
+  author={Koenker R, Rey H, Aghion P},
+  journal={Annual Review of Economics},
+  volume={9},
+  number={1},
+  pages={155-176},
+  year={2017},
+  publisher={Palo Alto: Annual Reviews}
+}
+
+
+@article{beyerlein2014,
+  title={Quantile Regression - Opportunities and Challenges from a User's Perspective},
+  author={Beyerlein A},
+  journal={American Journal of Epidemiology},
+  volume={180},
+  number={3},
+  pages={330-331},
+  year={2014},
+  publisher={Oxford University Press}
+}
+
+@ARTICLE{Jiang2023-ey,
+  title     = "No-crossing single-index quantile regression curve estimation",
+  author    = "Jiang, Rong and Yu, Keming",
+  journal   = "J. Bus. Econ. Stat.",
+  publisher = "Informa UK Limited",
+  volume    =  41,
+  number    =  2,
+  pages     = "309--320",
+  month     =  apr,
+  year      =  2023,
+  copyright = "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+  language  = "en"
+}
+
+
+@article{xuerongalanyong2015,
+  title={Efficient Quantile Regression Analysis with Missing Observations},
+  author={Xuerong C, Alan W, Yong Z},
+  journal={Journal of the American Statistical Association},
+  volume={110},
+  number={510},
+  pages={723-741},
+  year={2015},
+  publisher={Taylor & Francis}
+}
+
+@misc{koenker2010,
+  author = {Roger Koenker},
+  title = {Nonparametric Quantile Regression},
+  year = {2010},
+  howpublished = {Lecture 3, University of Illinois Urbana-Champaign},
+  note = {May 2010}
+}
+
+@misc{zambesi2024,
+  author = {Alethia Zambesi},
+  title = {Correlation and Regression Overview},
+  year = {2024},
+  howpublished = {Module 7, University of West Florida},
+  note = {April 2024}
+}
+
+@ARTICLE{Buhai2005-zi,
+  title   = "Quantile regression: overview and selected applications",
+  author  = "Buhai, S",
+  journal = "Ad Astra",
+  volume  =  4,
+  number  =  4,
+  pages   = "1--17",
+  year    =  2005
+}
+
+@MISC{noauthor_2022-ud,
+  title        = "{RStudio} desktop",
+  booktitle    = "Posit",
+  abstract     = "The best data science is open source. Posit is committed to
+                  creating incredible open-source tools for individuals, teams,
+                  and enterprises.",
+  month        =  oct,
+  year         =  2022,
+  howpublished = "\url{https://posit.co/download/rstudio-desktop/}",
+  note         = "Accessed: 2024-10-13",
+  language     = "en"
+}
+
+@misc{noauthor_2024-gu,
+  author      = {CDC},
+  title       = {2023 {BRFSS} survey data and documentation},
+  abstract    = {BRFSS has a long history in behavioral and chronic disease
+                 surveillance. Fifteen states participated in the first BRFSS,
+                 conducted in 1984.},
+  month       = sep,
+  year        = 2024,
+  howpublished = {\url{https://www.cdc.gov/brfss/annual_data/annual_2023.html}},
+  note        = {Accessed: 2024-10-13},
+  language    = {en}
+}
+
+
+@ARTICLE{Cohen2016-ix,
+  title     = "Increasing sensitivity of results by using quantile regression
+               analysis for exploring community resilience",
+  author    = "Cohen, Odeya and Bolotin, Arkady and Lahad, Mooli and Goldberg,
+               Avishay and Aharonson-Daniel, Limor",
+  abstract  = "Community resilience offers a conceptual framework for assessing
+               a community's capacity for coping with environmental changes and
+               emergency situations. It is perceived as a core element of
+               sustainable lifestyle, helping to mitigate the community's
+               reaction to crises by facilitating purposeful and collective
+               action on the part of its' members. The conjoint community
+               resilience assessment measure (CCRAM) provides a standard
+               measure of community resilience including five factors:
+               leadership, collective efficacy, preparedness, place attachment,
+               and social trust. The mean scores of each the factors portray a
+               community resilience profile and the overall CCRAM score is
+               calculated as the average of the scores of the 21 survey items
+               with an equal weight.Two regression models were employed.
+               Logistic regression, a commonly used tool in the field of
+               applied statistics, and quantile regression, which is a
+               non-parametric method that facilitates the detection of the
+               effect of a regressor on various quantiles of the dependent
+               variable.The study aims to demonstrate the innovative use of
+               quantile regression modeling in community resilience
+               analysis.The results demonstrate that the quantile regression
+               was significantly more sensitive to sub-populations than the
+               logistic regression.Having an income below average, which was
+               negatively correlated with perceived community resilience in the
+               logistic model was found to be significant only in the lower
+               (Q10, Q25) resilience quantiles. Age (per year) and previous
+               involvement in emergency situations which were not noted as
+               significant in the logistic regression, were found to be
+               positively associated with perceived community resilience in the
+               lowest quantile. A difference between quantiles of perceived
+               community resilience was noted in regard to size of community.
+               The association between size of community and perceived
+               community resilience which was negative in the logistic
+               regression (residents of larger towns had lower community
+               resilience), was found to be such only up to quantile 75, but it
+               reversed in the highest quantile.It was concluded that the
+               utilization of quantile regression analysis in studies of
+               community resilience can facilitate the creation of tailored
+               response plans, adapted to the needs of sub (such as weaker)
+               populations and help enhance overall community resilience in
+               crises.",
+  journal   = "Ecol. Indic.",
+  publisher = "Elsevier BV",
+  volume    =  66,
+  pages     = "497--502",
+  month     =  jul,
+  year      =  2016,
+  copyright = "http://creativecommons.org/licenses/by/4.0/"
+}
+
+@ARTICLE{cohen2016increasing,
+  author    = {Cohen, O. and Bolotin, A. and Lahad, M. and Goldberg, A. and Aharonson-Daniel, L.},
+  title     = {Increasing sensitivity of results by using quantile regression analysis for exploring community resilience},
+  journal   = {Ecological Indicators},
+  year      = {2016},
+  volume    = {66},
+  pages     = {497--502},
+}
+
+@ARTICLE{Koenker1999-py,
+  title     = "Goodness of fit and related inference processes for quantile
+               regression",
+  author    = "Koenker, Roger and Machado, Jose A F",
+  journal   = "J. Am. Stat. Assoc.",
+  publisher = "JSTOR",
+  volume    =  94,
+  number    =  448,
+  pages     = "1296",
+  month     =  dec,
+  year      =  1999
+}
+
+@book{koenker2005quantile,
+  author    = {Koenker, R.},
+  title     = {Quantile Regression},
+  year      = {2005},
+  publisher = {Cambridge University Press},
+}
+
+@ARTICLE{Olsen2017-ru,
+  title     = "Use of quantile regression to determine the impact on total
+               health care costs of surgical site infections following common
+               ambulatory procedures",
+  author    = "Olsen, Margaret A and Tian, Fang and Wallace, Anna E and Nickel,
+               Katelin B and Warren, David K and Fraser, Victoria J and Selvam,
+               Nandini and Hamilton, Barton H",
+  journal   = "Ann. Surg.",
+  publisher = "Ovid Technologies (Wolters Kluwer Health)",
+  volume    =  265,
+  number    =  2,
+  pages     = "331--339",
+  month     =  feb,
+  year      =  2017,
+  language  = "en"
+}
+
+
+@ARTICLE{Waldmann2018-es,
+  title     = "Quantile regression: A short story on how and why",
+  author    = "Waldmann, Elisabeth",
+  abstract  = "Abstract: Quantile regression quantifies the association of
+               explanatory variables with a conditional quantile of a dependent
+               variable without assuming any specific conditional distribution.
+               It hence models the quantiles, instead of the mean as done in
+               standard regression. In cases where either the requirements for
+               mean regression, such as homoscedasticity, are violated or
+               interest lies in the outer regions of the conditional
+               distribution, quantile regression can explain dependencies more
+               accurately than classical methods. However, many quantile
+               regression papers are rather theoretical so the method has still
+               not become a standard tool in applications. In this article, we
+               explain quantile regression from an applied perspective. In
+               particular, we illustrate the concept, advantages and
+               disadvantages of quantile regression using two datasets as
+               examples.",
+  journal   = "Stat. Modelling",
+  publisher = "SAGE Publications",
+  volume    =  18,
+  number    = "3-4",
+  pages     = "203--218",
+  month     =  jun,
+  year      =  2018,
+  language  = "en"
+}
+
+
+@ARTICLE{Staffa2019-lz,
+  title     = "Quantile regression and its applications: A primer for
+               anesthesiologists",
+  author    = "Staffa, Steven J and Kohane, Daniel S and Zurakowski, David",
+  abstract  = "Multivariable regression analysis is a powerful statistical tool
+               in biomedical research with numerous applications. While linear
+               regression can be used to model the expected value (ie, mean) of
+               a continuous outcome given the covariates in the model, quantile
+               regression can be used to compare the entire distribution of a
+               continuous response or a specific quantile of the response
+               between groups. The advantage of the quantile regression
+               methodology is that it allows for understanding relationships
+               between variables outside of the conditional mean of the
+               response; it is useful for understanding an outcome at its
+               various quantiles and comparing groups or levels of an exposure
+               on those quantiles. We present quantile regression in a 3-step
+               approach: determining that quantile regression is desired,
+               fitting the quantile regression model, and interpreting the
+               model results. We then apply our quantile regression analysis
+               approach using 2 illustrative examples from the 2015 American
+               College of Surgeons National Surgical Quality Improvement
+               Program Pediatric database, and 1 example utilizing data on
+               duration of sensory block in rats.",
+  journal   = "Anesth. Analg.",
+  publisher = "Ovid Technologies (Wolters Kluwer Health)",
+  volume    =  128,
+  number    =  4,
+  pages     = "820--830",
+  month     =  apr,
+  year      =  2019,
+  language  = "en"
+}
+
+
+@ARTICLE{Machado2005-ua,
+  title     = "Quantiles for Counts",
+  author    = "Machado, Jos{\'e} A F and Silva, J M C Santos",
+  abstract  = "This paper studies the estimation of conditional quantiles of
+               counts. Given the discreteness of the data, some smoothness has
+               to be artificially imposed on the problem. The methods currently
+               available to estimate quantiles of count data either assume that
+               the counts result from the discretization of a continuous
+               process, or are based on a smoothed objective function. However,
+               these methods have several drawbacks. We show that it is
+               possible to smooth the data in a way that allows inference to be
+               performed using standard quantile regression techniques. The
+               performance and implementation of the estimator are illustrated
+               by simulations and an application.",
+  journal   = "J. Am. Stat. Assoc.",
+  publisher = "Informa UK Limited",
+  volume    =  100,
+  number    =  472,
+  pages     = "1226--1237",
+  month     =  dec,
+  year      =  2005
+}
+
