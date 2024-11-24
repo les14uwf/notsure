@@ -1,7 +1,9 @@
 ---
 title: "Quantile Regression: An Exploration of the 2023 Behavioral Risk Factor Surveillance Survey"
 author: "Laura E. Sikes, MPH, CPH"
-format: html
+format: 
+  html:
+    css: styles.css
 self-contained: true
 editor: visual
 knitr:
@@ -19,6 +21,7 @@ execute:
 csl: https://www.zotero.org/styles/apa
 bibliography: "referencesppr.bib"
 fig-align: left
+
 ---
 
 ```{r}
@@ -50,7 +53,7 @@ In the above equation, the slope $\beta_1$ is
 $$
 \beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
 $$ 
-in which the *x* and *y* values are multiplied and summed, then multiplied by the total number of *x* and *y* observations.  That value is subtracted by the sum of *x* values and the sum of *y* values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the *x* values squared, and then subtracted by the square of sum of all of the *x* values.  The numerator is then divided by the denominator.
+in which each corresponding *x* and *y* value is multiplied and then summed, then multiplied by the total number of observations.  That value is subtracted by the sum of *x* values multiplied by the sum of *y* values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the *x* values squared, and then subtracted by the square of sum of all of the *x* values.  The numerator is then divided by the denominator.
 
 The intercept $\beta_0$ is
 

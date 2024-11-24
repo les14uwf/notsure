@@ -3090,6 +3090,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="fullcontent">
@@ -3128,7 +3129,7 @@ window.Quarto = {
 \hat{y} = \beta_0 + \beta_1 x
 \]</span> In the above equation, the slope <span class="math inline">\(\beta_1\)</span> is <span class="math display">\[
 \beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
-\]</span> in which the <em>x</em> and <em>y</em> values are multiplied and summed, then multiplied by the total number of <em>x</em> and <em>y</em> observations.  That value is subtracted by the sum of <em>x</em> values and the sum of <em>y</em> values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the <em>x</em> values squared, and then subtracted by the square of sum of all of the <em>x</em> values.  The numerator is then divided by the denominator.</p>
+\]</span> in which each corresponding <em>x</em> and <em>y</em> value is multiplied and then summed, then multiplied by the total number of observations.  That value is subtracted by the sum of <em>x</em> values multiplied by the sum of <em>y</em> values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the <em>x</em> values squared, and then subtracted by the square of sum of all of the <em>x</em> values.  The numerator is then divided by the denominator.</p>
 <p>The intercept <span class="math inline">\(\beta_0\)</span> is</p>
 <p><span class="math display">\[
 \beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
