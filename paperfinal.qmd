@@ -21,7 +21,6 @@ execute:
 csl: https://www.zotero.org/styles/apa
 bibliography: "referencesppr.bib"
 fig-align: left
-
 ---
 
 ```{r}
@@ -48,12 +47,9 @@ library(ggpubr)
 
 $$
 \hat{y} = \beta_0 + \beta_1 x
-$$
-In the above equation, the slope $\beta_1$ is 
-$$
+$$ In the above equation, the slope $\beta_1$ is $$
 \beta_1 = \frac{n \sum x y - \sum x \sum y}{n \sum x^2 - \left(\sum x\right)^2}
-$$ 
-in which each corresponding *x* and *y* value is multiplied and then summed, then multiplied by the total number of observations.  That value is subtracted by the sum of *x* values multiplied by the sum of *y* values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the *x* values squared, and then subtracted by the square of sum of all of the *x* values.  The numerator is then divided by the denominator.
+$$ in which each corresponding *x* and *y* value is multiplied and then summed, then multiplied by the total number of observations.  That value is subtracted by the sum of *x* values multiplied by the sum of *y* values.  This produces the numerator.  The denominator is found by multiplying the total number of observations by the sum of all of the *x* values squared, and then subtracted by the square of sum of all of the *x* values.  The numerator is then divided by the denominator.
 
 The intercept $\beta_0$ is
 
@@ -61,7 +57,7 @@ $$
 \beta_0 = \frac{\sum y}{n} - \beta_1 \frac{\sum x}{n}
 $$
 
-in which the sum of the response *y* values is divided by the number of observations *n*, and then subtracted by the slope $\beta_1$ multiplied by the sum of the predictor *x* values and divided by the number of observations *n*. 
+in which the sum of the response *y* values is divided by the number of observations *n*, and then subtracted by the slope $\beta_1$ multiplied by the sum of the predictor *x* values and divided by the number of observations *n*.
 
             Based on the above, predictions can be made about what would happen along the regression line where there are no data points, provided these predictions do not exceed the minimum and maximum boundaries of the data points.
 
@@ -73,7 +69,7 @@ $$
 Q_Y(\tau \mid X) = X \beta(\tau)
 $$
 
-where Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), β is the regression coefficient [@koenker2005quantile].
+where Q is the quantile function, τ represents the quantile of interest, Y is the response variable given the X predictor variable(s), and β is the regression coefficient [@koenker2005quantile].
 
             QR is a non-parametric method, meaning no assumptions are made about the sample size or the normality of the distribution [@Cohen2016-ix].  Koenker and Machado [-@Koenker1999-py] identified the absence of a suitable goodness-of-fit assessment for this statistical method.  The authors developed a method with inspiration from *R^2^*.  *R^2^* is the coefficient of determination, which identifies the difference between the regression line and the mean.  This coefficient’s values lie between 0 and 1, with values approaching 1 indicating ever-greater portions of the variation are explained by the relationship among the variables.  The formula is as follows:
 
@@ -101,7 +97,6 @@ where RSS is the residual sum of squares and TSS is the total sum of squares.
 
             Machado and Silva [-@Machado2005-ua] explored the use of QR for count data by incorporating artificial smoothness, allowing inferences to be made about the conditional quartiles.  The authors note that count data is often severely skewed, making it an excellent candidate for QR which is more resilient against skewness given its use of medians over means.
 
-
 # Methods
 
 Study Design and Data
@@ -110,16 +105,20 @@ Study Design and Data
 
 Response Variable
 
-            The response variable considered is days per month a respondent’s poor health affected his or her activities of daily living (ADL). Respondents were asked to assess their own mental and physical health for the previous 30 days and then to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs. Available responses were numeric values 1 – 30, none, refused, or don’t know/[not sure](https://les14uwf.github.io/notsure/notsure.mov).
+            The response variable considered was days per month a respondent’s poor health affected his or her activities of daily living (ADL). Respondents were asked to assess their own mental and physical health for the previous 30 days and then to quantify the number of days per month having poor mental or physical health interfered with their ability to conduct ADLs. Available responses were numeric values 1 – 30, none, refused, or don’t know/[not sure](https://les14uwf.github.io/notsure/notsure.mov).
 
 Predictor Variables
 
-            Predictor variables include weight, sex, education, income, physical health, and mental health. Regarding weight, respondents were asked to approximate their weight in pounds while wearing shoes, with available responses being numeric values 50 – 776, don’t know/not sure, Refused, and a separate indicator for weight measured in kilograms. Education was divided into nine categories as follows: never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused. Income in U.S. dollars was divided as follows: \<10,000, \$10,000 to \< \$15,000, \$15,000 to \< \$20,000, \$20,000 to \< \$25,000, \$25,000 to \< \$35,000, \$35,000 to \< \$50,000, \$50,000 to \< \$75,000, \$75,000 to \< \$100,000, \$100,000 to \< \$150,000, \$150,000 to \< \$200,000, \$200,000 or more, don’t know/not sure, and refused. Regarding physical health or mental health, respondents were asked the number of days during the previous 30 days in which their physical or mental health were not good. Possible responses were numeric values 1 – 30, none, refused, or don’t know/not sure. Regarding sex, respondents were given only the choice between male and female.
+            The predictor variable was weight in pounds. Respondents were asked to approximate their weight in pounds while wearing shoes, with available responses being numeric values 50 – 776, don’t know/not sure, refused, and a separate indicator for weight measured in kilograms.   
+
+            Additional variables considered to understand the study population were sex, education, income, physical health, and mental health. Education was divided into nine categories as follows: never attended school or only kindergarten, grades 1 through 8, grades 9 through 11, grade 12 or GED, 1 to 3 years of college, 4 years of college or more, and refused. Income in U.S. dollars was divided as follows: \<10,000, \$10,000 to \< \$15,000, \$15,000 to \< \$20,000, \$20,000 to \< \$25,000, \$25,000 to \< \$35,000, \$35,000 to \< \$50,000, \$50,000 to \< \$75,000, \$75,000 to \< \$100,000, \$100,000 to \< \$150,000, \$150,000 to \< \$200,000, \$200,000 or more, don’t know/not sure, and refused. Regarding physical health or mental health, respondents were asked the number of days during the previous 30 days in which their physical or mental health were not good. Possible responses were numeric values 1 – 30, none, refused, or don’t know/not sure. Regarding sex, respondents were given only the choice between male and female.
 
 Operationalization of Variables
 
            The dataset was filtered to include only residents of the state of Florida and removed of values containing “Refused,” “Not sure / Don’t know”, or missing. The response variable ADL was filtered to include only numeric responses, and recoded to four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.\
+
            Regarding predictor variables, education was recoded as follows: “Less than High School,”, “High School or GED,” “Some College”, and “4 Years of College or Higher”. Income was recoded into six groups as follows: “\<\$25,000”, “\$25,000-\$34,999”, “\$35,000-\$49,000”, “\$50,000-\$74,999”, “\$75,000-\$99,999”, and “\>\$100,000”. Physical health and mental health were each recoded into four groups as follows: “1-7 Days”, “8-14 Days,” “15-21 Days”, and “\>21 Days”.\
+
            All statistical analyses were performed using RStudio version 2024.04.2, build 764, “Chocolate Cosmos” release for Windows (Posit Software, PBC, 2024).            
 
 Analytical Method
@@ -128,66 +127,62 @@ Analytical Method
 
 # Results
 
-           Within this sample, more than one-half (52.2%) categorized their general health as "Fair" or "Poor" (Table 1).  Nearly one-third (30.5%) reported having greater than 21 days of poor physical health per month, while 40.7% reported 7 or fewer days of poor physical health.  Over one-third (36.5%) reported having between 1 and 7 days of poor mental health per month.  The largest portion of respondents (41.6%) reported 7 or fewer of days ADLs affected by poor mental or physical health.  Nearly one-half (48.7%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000.  This sample is heavily skewed female with only 37.3% identifying as male.  Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58) (Figure 1).
+           Within this sample, more than one-half (52.2%) categorized their general health as "Fair" or "Poor" (Table 1). Nearly one-third (30.5%) reported having greater than 21 days of poor physical health per month, while 40.7% reported 7 or fewer days of poor physical health. Over one-third (36.5%) reported having between 1 and 7 days of poor mental health per month. The largest portion of respondents (41.6%) reported 7 or fewer of days ADLs affected by poor mental or physical health. Nearly one-half (48.7%) reported annual income of under \$34,000, with just 13.1% reporting an income of over \$100,000. This sample is heavily skewed female with only 37.3% identifying as male. Weight ranged from 82 to 500 pounds with a median of 180 (SD = 53.58) (Figure 1).
 
 Table 1. Descriptive Statistics.
 
-| Variable                                | n = 1319 |   \% |
-|-----------------------------------------|---------:|-----:|
-| Self-Assessed General Health            |          |      |
-|    Excellent                            |       42 |  3.2 |
-|    Very Good                            |      205 | 15.5 |
-|    Good                                 |      383 | 29.0 |
-|    Fair                                 |      424 | 32.1 |
-|    Poor                                 |      265 | 20.1 |
-|                                         |          |      |
-| Poor Physical Health Days / Mo.         |          |      |
-|    1-7                                  |      537 | 40.7 |
-|    8-14                                 |      168 | 12.7 |
-|    15-21                                |      212 | 16.1 |
-|    \>21                                 |      402 | 30.5 |
-|                                         |          |      |
-| Poor Mental Health Days / Mo.           |          |      |
-|    1-7                                  |      481 | 36.5 |
-|    8-14                                 |      210 | 15.9 |
-|    15-21                                |      247 | 18.7 |
-|    \>21                                 |      381 | 28.9 |
-|                                         |          |      |
-| Poor Health Days Affected ADL / Mo.     |          |      |
-|    1-7                                  |      549 | 41.6 |
-|    8-14                                 |      191 | 14.5 |
-|    15-21                                |      247 | 18.7 |
-|    \>21                                 |      332 | 25.2 |
-|                                         |          |      |
-| Education                               |          |      |
-|    Less than High School                |      104 |  7.9 |
-|    High School or GED                   |      345 | 27.2 |
-|    Some College                         |      450 | 35.7 |
-|    4 Years College or More              |      420 | 33.3 |
-|                                         |          |      |
-| Annual Income                           |          |      |
-|    ≤ \$24,999                           |      413 | 31.3 |
-|    \$25,000 - \$34,999                  |      220 | 17.4 |
-|    \$35,000 - \$49,999                  |      183 | 13.9 |
-|    \$50,000 - \$74,999                  |      192 | 14.6 |
-|    \$75,000 - \$99,999                  |      146 | 11.1 |
-|    ≥\$100,000                           |      165 | 12.5 |
-|                                         |          |      |
-| Sex                                     |          |      |
-|    Male                                 |      493 | 37.3 |
-|    Female                               |      826 | 62.7 |<br>
+| Variable                            | n = 1319 |   \% |
+|-------------------------------------|---------:|-----:|
+| Self-Assessed General Health        |          |      |
+|    Excellent                        |       42 |  3.2 |
+|    Very Good                        |      205 | 15.5 |
+|    Good                             |      383 | 29.0 |
+|    Fair                             |      424 | 32.1 |
+|    Poor                             |      265 | 20.1 |
+|                                     |          |      |
+| Poor Physical Health Days / Mo.     |          |      |
+|    1-7                              |      537 | 40.7 |
+|    8-14                             |      168 | 12.7 |
+|    15-21                            |      212 | 16.1 |
+|    \>21                             |      402 | 30.5 |
+|                                     |          |      |
+| Poor Mental Health Days / Mo.       |          |      |
+|    1-7                              |      481 | 36.5 |
+|    8-14                             |      210 | 15.9 |
+|    15-21                            |      247 | 18.7 |
+|    \>21                             |      381 | 28.9 |
+|                                     |          |      |
+| Poor Health Days Affected ADL / Mo. |          |      |
+|    1-7                              |      549 | 41.6 |
+|    8-14                             |      191 | 14.5 |
+|    15-21                            |      247 | 18.7 |
+|    \>21                             |      332 | 25.2 |
+|                                     |          |      |
+| Education                           |          |      |
+|    Less than High School            |      104 |  7.9 |
+|    High School or GED               |      345 | 27.2 |
+|    Some College                     |      450 | 35.7 |
+|    4 Years College or More          |      420 | 33.3 |
+|                                     |          |      |
+| Annual Income                       |          |      |
+|    ≤ \$24,999                       |      413 | 31.3 |
+|    \$25,000 - \$34,999              |      220 | 17.4 |
+|    \$35,000 - \$49,999              |      183 | 13.9 |
+|    \$50,000 - \$74,999              |      192 | 14.6 |
+|    \$75,000 - \$99,999              |      146 | 11.1 |
+|    ≥\$100,000                       |      165 | 12.5 |
+|                                     |          |      |
+| Sex                                 |          |      |
+|    Male                             |      493 | 37.3 |
+|    Female                           |      826 | 62.7 |
 
 <br>
 
-<br>
-<br>Figure 1. Sample distribution of weight in pounds (n=1319).
+<br> <br>Figure 1. Sample distribution of weight in pounds (n=1319).
 
-![Graph](https://les14uwf.github.io/notsure/weighthistogram.PNG)
-<br>
+![Graph](https://les14uwf.github.io/notsure/weighthistogram.PNG) <br>
 
-<br>
-<br>
-
+<br> <br>
 
 <br>Table 2. Quantile regression analysis of poor ADL days per month as a function of weight (n=1319).
 
@@ -196,27 +191,20 @@ Table 1. Descriptive Statistics.
 | 0.25     | 0.005                     | -0.002       | 0.012        | 0.158          |
 | 0.50     | 0.000                     | -0.013       | 0.013        | 1.000          |
 | 0.75     | 0.032                     | -0.004       | 0.068        | 0.078          |
-Note. $\alpha$ = 0.05.<br>
-<br>
 
-
+Note. $\alpha$ = 0.05.<br> <br>
 
 <br>Figure 2. Quantile regression analysis of poor ADL days per month as a function of weight (n=1319).
 
-![Graph](https://les14uwf.github.io/notsure/qrplot.png)
-Note. $\alpha$ = 0.05.<br>
-<br>
+![Graph](https://les14uwf.github.io/notsure/qrplot.png) Note. $\alpha$ = 0.05.<br> <br>
 
-# Discussion 
-           At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.05 level (<i>p</i>=0.158) (Table 2). At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health was not detected at the $\alpha$ = 0.05 level (<i>p</i>=1.000). At the third quartile ($\tau$ = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078). These findings were not statistically significant.<br>
-           Figure 2 illustrates the QR model with the 25th percentile in yellow, the 50th percentile in green, the 75th percentile in blue, and OLS represented by a black dotted line.  A visual comparison of the slopes suggests the strongest effect of weight on the number of affected ADL days at the 75th percentile ($\tau$ = 0.75).  
-           Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further.  Weight may have a larger effect at the higher extreme of the distribution, but was not examined in this study.  Future studies may find a statistically-significant effect at the ninetieth ($\tau$ = 0.90) or ninety-fifth ($\tau$ = 0.95) quantiles<br>
-           <br>
-Limitations<br>
-<br>
-           This study has limitations.  As a cross-sectional study design, the results can provide insights into relationships between variables but causality cannot be established.  This analysis is limited to a single year and does not show trends over time.  The female sex was over-represented at 62.7% of the sample relative to the state of Florida's 2023 female population at 50.9% [@census2023fl].  The original dataset was built using telephone survey data, which excludes members of the population without access to telephones as well as those who do not answer calls from unknown numbers.
+# Discussion
+
+           At the first quartile ($\tau$ = 0.25), a coefficient of 0.005 (95% CI = -0.002, 0.012) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.005 days at the $\alpha$ = 0.05 level (<i>p</i>=0.158) (Table 2). At the second quartile ($\tau$ = 0.50), a coefficient of 0.000 (95% CI = -0.013, 0.013) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health was not detected at the $\alpha$ = 0.05 level (<i>p</i>=1.000). At the third quartile ($\tau$ = 0.75), a coefficient of 0.032 (95% CI = -0.004, 0.068) indicates that for each one pound increase in weight, the number of days per month of ADLs affected by poor mental or physical health increases by 0.032 days at the $\alpha$ = 0.05 level (<i>p</i>=0.078). These findings were not statistically significant.<br>            Figure 2 illustrates the QR model with the 25th percentile in yellow, the 50th percentile in green, the 75th percentile in blue, and OLS represented by a black dotted line. A visual comparison of the slopes suggests the strongest effect of weight on the number of affected ADL days at the 75th percentile ($\tau$ = 0.75).\
+           Since the third quartile ($\tau$ = 0.75) was marginally but not statistically significant with a <i>p</i>-value of 0.078 at the $\alpha$ = 0.05 level, it may be useful to investigate these relationships further. Weight may have a larger effect at the higher extreme of the distribution, but was not examined in this study. Future studies may find a statistically-significant effect at the ninetieth ($\tau$ = 0.90) or ninety-fifth ($\tau$ = 0.95) quantiles<br>            <br> Limitations<br> <br>            This study has limitations. As a cross-sectional study design, the results can provide insights into relationships between variables but causality cannot be established. This analysis is limited to a single year and does not show trends over time. The female sex was over-represented at 62.7% of the sample relative to the state of Florida's 2023 female population at 50.9% [@census2023fl]. The original dataset was built using telephone survey data, which excludes members of the population without access to telephones as well as those who do not answer calls from unknown numbers.
 
 ## Conclusion
-           QR is well-represented within the literature and offers numerous advantages over traditional regression models where relationships between variables are suspected to change across quantiles.  QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution.  With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our [data.](https://les14uwf.github.io/notsure/sorry.PNG)
+
+           QR is well-represented within the literature and offers numerous advantages over traditional regression models where relationships between variables are suspected to change across quantiles. QR is an excellent analytical method to employ when stronger relationships are suspected at the extremes of the distribution. With applications from real estate to life-and-death healthcare outcomes, QR affords a unique perspective into the nuances of our [data.](https://les14uwf.github.io/notsure/sorry.PNG)
 
 # References
